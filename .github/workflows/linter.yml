@@ -31,11 +31,11 @@ jobs:
     - name: Install dependencies
       run: composer install
     - name: Set up WordPress
-      run: |
-        wp core download --allow-root
-        cp .env.example .env
-        wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
-        wp db create --allow-root
+      run: wp core download --allow-root
+    - name: Create WordPress configuration
+      run: wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
+    - name: Create database
+      run: wp db create --allow-root
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit
 
