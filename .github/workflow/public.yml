@@ -60,13 +60,14 @@ jobs:
       run: |
         echo "$HOSTINGER_SSH_KEY" > deploy_key
         chmod 600 deploy_key
-        rsync -avz -r -e "ssh -i deploy_key -o StrictHostKeyChecking=no"  --exclude={'.git','.github','wp-content/uploads','phpunit.xml','tests','phpcs.xml','deploy_key','.env'} --update \
+        rsync -avz -r -e "ssh -i deploy_key -o StrictHostKeyChecking=no"  --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','phpcs.xml','deploy_key','.env', 'composer.lock', 'composer.json'} --update \
           ./ ${HOSTINGER_USER}@${HOSTINGER_HOST}:${HOSTINGER_PATH}
         ssh -i deploy_key -o StrictHostKeyChecking=no ${HOSTINGER_USER}@${HOSTINGER_HOST} \
           "cd ${HOSTINGER_PATH} && \
           wp core update --allow-root && \
           wp plugin update --all --allow-root && \
-          wp theme update --all --allow-root"
+          wp theme update --all --allow-root && \
+          wp theme activate coolkidsnetwork --allow-root"
         rm -f deploy_key
 
   status_checks:
