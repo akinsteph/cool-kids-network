@@ -6,10 +6,7 @@ trait Singleton
 {
   private static $instance = null;
 
-  protected function __construct()
-  {
-    // Protected constructor to prevent direct creation
-  }
+  protected function __construct() {}
 
   public static function get_instance()
   {
