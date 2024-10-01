@@ -1,11 +1,7 @@
-name: CI/CD
+name: Deploy to Public site
 
 on:
   push:
-    branches:
-      - develop
-      - main
-  pull_request:
     branches:
       - develop
       - main
@@ -73,13 +69,3 @@ jobs:
           wp theme update --all --allow-root && \
           wp theme activate coolkidsnetwork --allow-root"
         rm -f deploy_key
-
-  status_checks:
-    needs: [lint, test]
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-    - name: Successful PR Check
-      run: |
-        echo "All checks have passed!"
-        exit 0
