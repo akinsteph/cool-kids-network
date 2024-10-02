@@ -1,17 +1,32 @@
 <?php
 
+/**
+ * RandomUserAPI class for the Cool Kids Network.
+ *
+ * @package CoolKidsNetwork
+ * @subpackage API
+ */
+
 namespace CoolKidsNetwork\API;
 
 use CoolKidsNetwork\Traits\Singleton;
 
-class RandomUserAPI
-{
+/**
+ * Class RandomUserAPI
+ *
+ * Handles API requests to the Random User Generator API.
+ */
+class RandomUserAPI {
   use Singleton;
 
   private $api_url = 'https://randomuser.me/api/';
 
-  public function get_random_user()
-  {
+  /**
+   * Retrieves a random user from the API.
+   *
+   * @return array|false The user data or false if the request fails.
+   */
+  public function get_random_user() {
     $response = wp_remote_get($this->api_url);
 
     if (is_wp_error($response)) {
@@ -27,10 +42,10 @@ class RandomUserAPI
 
     $user = $data['results'][0];
 
-    return [
+    return array(
       'first_name' => $user['name']['first'],
       'last_name'  => $user['name']['last'],
       'country'    => $user['location']['country']
-    ];
+    );
   }
 }

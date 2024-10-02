@@ -1,15 +1,35 @@
 <?php
 
+/**
+ * Trait Singleton
+ *
+ * Provides a method to ensure only one instance of a class is created.
+ */
+
 namespace CoolKidsNetwork\Traits;
 
-trait Singleton
-{
+/**
+ * Trait Singleton
+ *
+ * Provides a method to ensure only one instance of a class is created.
+ */
+trait Singleton {
   private static $instance = null;
 
-  protected function __construct() {}
+  /**
+   * Constructor for the Singleton trait.
+   *
+   * This method is protected to prevent direct instantiation.
+   */
+  protected function __construct() {
+  }
 
-  public static function get_instance()
-  {
+  /**
+   * Retrieves the instance of the class.
+   *
+   * @return static The instance of the class.
+   */
+  public static function get_instance() {
     if (null === self::$instance) {
       self::$instance = new static();
     }
