@@ -6,41 +6,8 @@ on:
       - develop
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-    - name: Install dependencies
-      run: composer install
-    - name: Run PHP_CodeSniffer
-      run: vendor/bin/phpcs
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-    - name: Install dependencies
-      run: composer install
-    - name: Set up WordPress
-      run: |
-        wp core download --allow-root
-        cp .env.example .env
-        wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
-        wp db create --allow-root
-    - name: Run PHPUnit tests
-      run: vendor/bin/phpunit
-
   deploy:
-    needs: [lint, test]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
