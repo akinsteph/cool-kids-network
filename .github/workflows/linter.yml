@@ -33,8 +33,8 @@ jobs:
       run: composer install
     - name: Setup WP-CLI
       uses: godaddy-wordpress/setup-wp-cli@1
+    - name: Download Wordpress
       run: wp core download --allow-root
-      
     - name: Create WordPress configuration
       run: wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
     - name: Create database
