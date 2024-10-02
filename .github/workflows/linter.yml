@@ -34,6 +34,7 @@ jobs:
     - name: Setup WP-CLI
       uses: godaddy-wordpress/setup-wp-cli@1
       run: wp core download --allow-root
+      
     - name: Create WordPress configuration
       run: wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
     - name: Create database
