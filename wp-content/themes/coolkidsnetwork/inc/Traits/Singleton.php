@@ -1,15 +1,17 @@
 <?php
 
 /**
- * Trait Singleton
+ * Trait Singleton.
  *
  * Provides a method to ensure only one instance of a class is created.
+ * 
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\Traits;
 
 /**
- * Trait Singleton
+ * Trait Singleton.
  *
  * Provides a method to ensure only one instance of a class is created.
  */
@@ -33,6 +35,7 @@ trait Singleton {
     if (null === self::$instance) {
       self::$instance = new static();
     }
+
     return self::$instance;
   }
 }

@@ -3,18 +3,17 @@
 /**
  * Registration functionality for Cool Kids Network.
  *
- * @package CoolKidsNetwork
- * @subpackage Features
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\Features;
 
 use CoolKidsNetwork\API\RandomUserAPI;
-use CoolKidsNetwork\Traits\Singleton;
 use CoolKidsNetwork\Traits\FormRenderer;
+use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class Registration
+ * Class Registration.
  *
  * Handles registration functionality for the Cool Kids Network.
  */
@@ -60,12 +59,12 @@ class Registration {
 
     $random_user = $this->random_user_api->get_random_user();
 
-    $user_id = wp_insert_user(array(
+    $user_id = wp_insert_user([
       'user_login' => $email,
       'user_email' => $email,
-      'user_pass'  => wp_generate_password(),
-      'role'       => 'subscriber'
-    ));
+      'user_pass' => wp_generate_password(),
+      'role' => 'subscriber',
+    ]);
 
     if (is_wp_error($user_id)) {
       wp_send_json_error('Failed to create user');

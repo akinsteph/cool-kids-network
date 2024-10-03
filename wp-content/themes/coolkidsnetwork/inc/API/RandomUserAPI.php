@@ -3,8 +3,7 @@
 /**
  * RandomUserAPI class for the Cool Kids Network.
  *
- * @package CoolKidsNetwork
- * @subpackage API
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\API;
@@ -12,7 +11,7 @@ namespace CoolKidsNetwork\API;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class RandomUserAPI
+ * Class RandomUserAPI.
  *
  * Handles API requests to the Random User Generator API.
  */
@@ -42,10 +41,10 @@ class RandomUserAPI {
 
     $user = $data['results'][0];
 
-    return array(
+    return [
       'first_name' => $user['name']['first'],
-      'last_name'  => $user['name']['last'],
-      'country'    => $user['location']['country']
-    );
+      'last_name' => $user['name']['last'],
+      'country' => $user['location']['country'],
+    ];
   }
 }

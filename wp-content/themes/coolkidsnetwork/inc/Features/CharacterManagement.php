@@ -3,8 +3,7 @@
 /**
  * Character Management functionality for Cool Kids Network.
  *
- * @package CoolKidsNetwork
- * @subpackage Features
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\Features;
@@ -12,7 +11,7 @@ namespace CoolKidsNetwork\Features;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class CharacterManagement
+ * Class CharacterManagement.
  *
  * Handles character management functionality for the Cool Kids Network.
  */
@@ -61,11 +60,12 @@ class CharacterManagement {
    */
   private function get_user_data($user_id) {
     $user = get_userdata($user_id);
-    return array(
+
+    return [
       'name' => $user->first_name . ' ' . $user->last_name,
       'country' => get_user_meta($user_id, 'country', true),
       'email' => $user->user_email,
-      'role' => get_user_meta($user_id, 'cool_kids_role', true)
-    );
+      'role' => get_user_meta($user_id, 'cool_kids_role', true),
+    ];
   }
 }

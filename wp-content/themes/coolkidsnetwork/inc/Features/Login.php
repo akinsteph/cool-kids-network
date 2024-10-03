@@ -3,17 +3,16 @@
 /**
  * Login functionality for Cool Kids Network.
  *
- * @package CoolKidsNetwork
- * @subpackage Features
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\Features;
 
-use CoolKidsNetwork\Traits\Singleton;
 use CoolKidsNetwork\Traits\FormRenderer;
+use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class Login
+ * Class Login.
  *
  * Handles login functionality for the Cool Kids Network.
  */
@@ -22,8 +21,8 @@ class Login {
   use FormRenderer;
 
   protected function __construct() {
-    add_action('wp_ajax_nopriv_cool_kids_login', array($this, 'login_user'));
-    add_shortcode('cool_kids_login_form', array($this, 'login_form_shortcode'));
+    add_action('wp_ajax_nopriv_cool_kids_login', [$this, 'login_user']);
+    add_shortcode('cool_kids_login_form', [$this, 'login_form_shortcode']);
   }
 
   /**

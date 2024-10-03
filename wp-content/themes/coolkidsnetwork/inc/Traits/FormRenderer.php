@@ -1,15 +1,17 @@
 <?php
 
 /**
- * Trait FormRenderer
+ * Trait FormRenderer.
  *
  * Provides methods for rendering forms.
+ * 
+ * @package Cool Kids Network
  */
 
 namespace CoolKidsNetwork\Traits;
 
 /**
- * Trait FormRenderer
+ * Trait FormRenderer.
  *
  * Provides methods for rendering forms.
  */

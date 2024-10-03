@@ -2,23 +2,17 @@
 
 /**
  * Theme class for the Cool Kids Network.
- *
- * @package CoolKidsNetwork
- * @subpackage Core
  */
 
 namespace CoolKidsNetwork\Core;
 
-use CoolKidsNetwork\Features\Registration;
-use CoolKidsNetwork\Features\Login;
 use CoolKidsNetwork\Features\CharacterManagement;
+use CoolKidsNetwork\Features\Login;
+use CoolKidsNetwork\Features\Registration;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
  * Theme class for the Cool Kids Network.
- *
- * @package CoolKidsNetwork
- * @subpackage Core
  */
 class Theme {
   use Singleton;
@@ -53,7 +47,7 @@ class Theme {
     wp_enqueue_script('cool-kids-network', get_template_directory_uri() . '/assets/js/cool-kids-network.js', ['jquery'], '1.0', true);
     wp_localize_script('cool-kids-network', 'coolKidsNetwork', [
       'ajaxurl' => admin_url('admin-ajax.php'),
-      'nonce' => wp_create_nonce('cool-kids-network-nonce')
+      'nonce' => wp_create_nonce('cool-kids-network-nonce'),
     ]);
   }
 }
