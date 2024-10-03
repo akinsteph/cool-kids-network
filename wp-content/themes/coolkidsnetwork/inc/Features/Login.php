@@ -22,8 +22,8 @@ class Login {
   use FormRenderer;
 
   protected function __construct() {
-    add_action('wp_ajax_nopriv_cool_kids_login', [$this, 'login_user']);
-    add_shortcode('cool_kids_login_form', [$this, 'login_form_shortcode']);
+    add_action('wp_ajax_nopriv_cool_kids_login', array($this, 'login_user'));
+    add_shortcode('cool_kids_login_form', array($this, 'login_form_shortcode'));
   }
 
   /**

@@ -49,7 +49,7 @@ trait FormRenderer {
    * @return void
    */
   protected function validate_email($email) {
-    $email = sanitize_email($email);
+    $email = isset($email) ? sanitize_email(wp_unslash($email)) : '';
 
     if (!is_email($email)) {
       wp_send_json_error('Invalid email address');
