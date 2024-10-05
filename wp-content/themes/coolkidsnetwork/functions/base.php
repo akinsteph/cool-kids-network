@@ -13,8 +13,7 @@ use CoolKidsNetwork\Core\Theme;
  *
  * @return void
  */
-function ckn_enqueue_assets()
-{
+function ckn_enqueue_assets() {
 	wp_enqueue_style('coolkidsnetwork-styles', get_stylesheet_uri(), [], COOL_KIDS_NETWORK_VERSION, 'all');
 	wp_enqueue_script('coolkidsnetwork-scripts', COOL_KIDS_NETWORK_URI . '/assets/js/coolkidsnetwork-scripts.js', ['jquery'], COOL_KIDS_NETWORK_VERSION, true);
 
@@ -31,13 +30,11 @@ add_action('wp_enqueue_scripts', 'ckn_enqueue_assets');
  *
  * @return void
  */
-function setup_theme()
-{
+function setup_theme() {
 
 	// Add theme support for title tag, post thumbnails, HTML5, custom logo, custom header, custom background, custom footer, custom menu, custom post type, custom category
-	add_theme_support('title-tag');
 	add_theme_support('post-thumbnails');
-	add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
+	add_theme_support('html5', ['search-form']);
 	add_theme_support('custom-logo');
 	add_theme_support('custom-header');
 	add_theme_support('custom-background');
