@@ -33,4 +33,4 @@ jobs:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_PATH: ${{ secrets.HOSTINGER_PATH }}
         run: |
-          rsync -avz -e "ssh -p 65002" --update --exclude={'/.git','/.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','/phpcs.xml','/phpcs.xml.dist','deploy_key','/.env', 'composer.lock', 'composer.json'} $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
+          rsync -avz -e "ssh -p 65002" --update --exclude={'/.git','/.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','/phpcs.xml','/phpcs.xml.dist','deploy_key','/.env', '/composer.lock', '/composer.json', '/vendor'} $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
