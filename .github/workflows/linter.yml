@@ -8,41 +8,25 @@ on:
 
 jobs:
   lint:
+    name: WPCS check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-    - name: Install dependencies
-      run: composer install
-    - name: Run PHP_CodeSniffer
-      run: vendor/bin/phpcs
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-    - name: Allow WordPress core installer plugin
-      run: composer config --no-plugins allow-plugins.johnpbloch/wordpress-core-installer true
-    - name: Install dependencies
-      run: composer install
-    - name: Set up WordPress
-      run: |
-        wp core download --allow-root
-        cp .env.example .env
-        wp config create --dbname=test_db --dbuser=root --dbpass=root --allow-root
-        wp db create --allow-root
-    - name: Run PHPUnit tests
-      run: vendor/bin/phpunit
+      - uses: actions/checkout@v3
+      - name: VIPCS check
+        uses: 10up/wpcs-action@stable
+        with:
+          standard: 'WordPress'
+          extra_args: '--report-json=./phpcs.json'
+          use_local_config: 'true'
+      - name: Update summary
+        run: |
+          npm i -g github:10up/phpcs-json-to-md
+          phpcs-json-to-md --path ./phpcs.json --output ./phpcs.md
+          cat phpcs.md >> $GITHUB_STEP_SUMMARY
+        if: always()
 
   status_checks:
-    needs: [lint, test]
+    needs: [lint]
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:

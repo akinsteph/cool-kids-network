@@ -16,5 +16,10 @@
     "post-install-cmd": [
       "phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "johnpbloch/wordpress-core-installer": true
+    }
   }
 }
