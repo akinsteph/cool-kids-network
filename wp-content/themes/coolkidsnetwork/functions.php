@@ -6,12 +6,9 @@
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @since Cool Kids Network 1.0
- * 
- * @package Cool Kids Network
+ *
+ * @package CoolKidsNetwork
  */
-
-// Define theme version.
-define('COOL_KIDS_NETWORK_VERSION', '1.0.0');
 
 /**
  * Load Composer autoload.

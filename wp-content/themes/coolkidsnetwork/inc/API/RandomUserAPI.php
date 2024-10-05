@@ -3,7 +3,7 @@
 /**
  * RandomUserAPI class for the Cool Kids Network.
  *
- * @package Cool Kids Network
+ * @package CoolKidsNetwork
  */
 
 namespace CoolKidsNetwork\API;
@@ -19,6 +19,15 @@ class RandomUserAPI {
   use Singleton;
 
   private $api_url = 'https://randomuser.me/api/';
+
+  /**
+   * Constructor for the RandomUserAPI class.
+   *
+   * @return void
+   */
+  protected function __construct() {
+    // Private constructor to prevent direct creation
+  }
 
   /**
    * Retrieves a random user from the API.
@@ -42,9 +51,16 @@ class RandomUserAPI {
     $user = $data['results'][0];
 
     return [
-      'first_name' => $user['name']['first'],
-      'last_name' => $user['name']['last'],
-      'country' => $user['location']['country'],
+      'first_name' => sanitize_text_field($user['name']['first']),
+      'last_name' => sanitize_text_field($user['name']['last']),
+      'email' => sanitize_email($user['email']),
+      'country' => sanitize_text_field($user['location']['country']),
+      'address' => [
+        'street' => sanitize_text_field($user['location']['street']['name'] . ' ' . $user['location']['street']['number']),
+        'city' => sanitize_text_field($user['location']['city']),
+        'state' => sanitize_text_field($user['location']['state']),
+        'postcode' => sanitize_text_field($user['location']['postcode']),
+      ],
     ];
   }
 }
