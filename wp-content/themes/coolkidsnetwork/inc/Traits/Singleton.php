@@ -27,6 +27,23 @@ trait Singleton {
   }
 
   /**
+   * Prevent cloning of the instance.
+   *
+   * @throws \Exception Always throws an exception.
+   */
+  protected function __clone() {
+  }
+
+  /**
+   * Prevent unserializing of the instance.
+   *
+   * @throws \Exception Always throws an exception.
+   */
+  public function __wakeup() {
+    throw new \Exception("Cannot unserialize singleton");
+  }
+
+  /**
    * Retrieves the instance of the class.
    *
    * @return static The instance of the class.

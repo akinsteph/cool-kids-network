@@ -17,8 +17,7 @@ use CoolKidsNetwork\Traits\Singleton;
  * Handles login functionality for the Cool Kids Network.
  */
 class Login {
-  use Singleton;
-  use FormRenderer;
+  use Singleton, FormRenderer;
 
   protected function __construct() {
     add_action('wp_ajax_nopriv_cool_kids_login', [$this, 'login_user']);
@@ -31,7 +30,7 @@ class Login {
    * @return string The login form HTML.
    */
   public function login_form_shortcode() {
-    return $this->render_form('login', 'Login');
+    return $this->render_form('login', ['email' => 'Email'], 'Login');
   }
 
   /**
@@ -40,7 +39,7 @@ class Login {
    * @return void
    */
   public function login_user() {
-    $this->verify_ajax_request();
+    $this->verify_nonce('login');
 
     $email = $this->validate_email($_POST['email']);
 

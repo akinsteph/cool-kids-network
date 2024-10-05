@@ -6,14 +6,23 @@
  * @package Cool Kids Network
  */
 
+// Define theme version.
+define('COOL_KIDS_NETWORK_VERSION', '1.0.0');
+
+// Define theme directory path.
+define('COOL_KIDS_NETWORK_DIR', get_template_directory());
+
+// Define theme directory URI.
+define('COOL_KIDS_NETWORK_URI', get_template_directory_uri());
+
 // Define asset directory path.
-define('COOL_KIDS_NETWORK_ASSET_DIR', get_template_directory() . '/assets');
+define('COOL_KIDS_NETWORK_ASSET_DIR', COOL_KIDS_NETWORK_DIR . '/assets');
 
 // Define asset URL.
-define('COOL_KIDS_NETWORK_ASSET_URL', get_template_directory_uri() . '/assets');
+define('COOL_KIDS_NETWORK_ASSET_URL', COOL_KIDS_NETWORK_URI . '/assets');
 
 // Define templates path for includes.
-define('COOL_KIDS_NETWORK_TEMPLATES_PATH', get_template_directory() . '/templates');
+define('COOL_KIDS_NETWORK_TEMPLATES_PATH', COOL_KIDS_NETWORK_DIR . '/templates');
 
 // Define languages path.
-define('COOL_KIDS_NETWORK_LANGUAGES_PATH', get_template_directory() . '/languages');
+define('COOL_KIDS_NETWORK_LANGUAGES_PATH', COOL_KIDS_NETWORK_DIR . '/languages');
