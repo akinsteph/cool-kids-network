@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards">
-  <description>PHPCS configuration file for WordPress coding standards.</description>
-  <file>./wp-content</file>
-  <arg name="extensions" value="php"/>
-  <rule ref="WordPress"/>
-</ruleset>
