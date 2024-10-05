@@ -12,7 +12,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
     
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.0
@@ -30,8 +30,19 @@ jobs:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_PATH: ${{ secrets.HOSTINGER_PATH }}
         run: |
-          # Transfer files using rsync 
-          rsync -avz -e "ssh -p 65002" --update --exclude={'.git','.github','.gitignore','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','wp-content/themes/coolkidsnetwork/vendor','phpcs.xml','phpcs.xml.dist','deploy_key','.env', 'vendor'} $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
+          # Transfer files using rsync
+          rsync -avz -e "ssh -p 65002" --update \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='wp-content/uploads' \
+            --exclude='wp-content/themes/coolkidsnetwork/tests' \
+            --exclude='wp-content/themes/coolkidsnetwork/vendor' \
+            --exclude='phpunit.xml' \
+            --exclude='phpcs.xml' \
+            --exclude='phpcs.xml.dist' \
+            --exclude='.env' \
+            $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
           
           # Install theme Composer dependencies
           ssh -p 65002 $HOSTINGER_USER@$HOSTINGER_HOST "cd $HOSTINGER_PATH/wp-content/themes/coolkidsnetwork && composer install --no-dev --optimize-autoloader"
