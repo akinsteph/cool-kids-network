@@ -1,4 +1,4 @@
-name: Deploy to Public site
+name: Deploy to Hostinger
 
 on:
   push:
@@ -8,24 +8,29 @@ on:
 jobs:
   deploy:
     name: 🎉 Deploy
-
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
     
-      - name: SSH setup
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+    
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
+      - name: Add Hostinger to known hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
-        
+          ssh-keyscan -p 65002 -H 194.164.74.227 >> ~/.ssh/known_hosts
+    
       - name: Deploy to Hostinger
+        env:
+          HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_PATH: ${{ secrets.HOSTINGER_PATH }}
         run: |
-          # Install Composer dependencies
-          composer install --no-dev --optimize-autoloader
-          
-          # Transfer files using rsync (excluding uploads, plugins, and docker-compose.yml)
-          rsync -r --update --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','phpcs.xml','deploy_key','.env', 'composer.lock', 'composer.json'} --delete-after $GITHUB_WORKSPACE/ ${{ secrets.HOSTINGER_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.HOSTINGER_PATH }}
+          rsync -avz -e "ssh -p 65002" --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','phpcs.xml','deploy_key','.env', 'composer.lock', 'composer.json'} --delete-after $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
