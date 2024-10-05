@@ -7,31 +7,25 @@ on:
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    name: 🎉 Deploy
+
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-    - name: Install dependencies
-      run: composer install --no-dev --optimize-autoloader
-    - name: Deploy to Hostinger
-      env:
-        HOSTINGER_SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
-        HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
-        HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
-        HOSTINGER_PATH: ${{ secrets.HOSTINGER_PATH }}
-      run: |
-        echo "$HOSTINGER_SSH_KEY" > deploy_key
-        chmod 600 deploy_key
-        rsync -avz -r -e "ssh -i deploy_key -o StrictHostKeyChecking=no"  --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','phpcs.xml','deploy_key','.env', 'composer.lock', 'composer.json'} --update \
-          ./ ${HOSTINGER_USER}@${HOSTINGER_HOST}:${HOSTINGER_PATH}
-        ssh -i deploy_key -o StrictHostKeyChecking=no ${HOSTINGER_USER}@${HOSTINGER_HOST} \
-          "cd ${HOSTINGER_PATH} && \
-          wp core update --allow-root && \
-          wp plugin update --all --allow-root && \
-          wp theme update --all --allow-root && \
-          wp theme activate coolkidsnetwork --allow-root"
-        rm -f deploy_key
+      - uses: actions/checkout@v3
+    
+      - name: SSH setup
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
+        
+      - name: Deploy to Hostinger
+
+        run: |
+          # Install Composer dependencies
+          composer install --no-dev --optimize-autoloader
+          
+          # Transfer files using rsync (excluding uploads, plugins, and docker-compose.yml)
+          rsync -r --update --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','phpcs.xml','deploy_key','.env', 'composer.lock', 'composer.json'} --delete-after $GITHUB_WORKSPACE/ ${{ secrets.HOSTINGER_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.HOSTINGER_PATH }}
