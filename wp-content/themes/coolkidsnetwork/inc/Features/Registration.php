@@ -40,7 +40,7 @@ class Registration {
    * @return string The registration form HTML.
    */
   public function registration_form_shortcode() {
-    return $this->render_form('registration', 'Register');
+    return $this->render_form('registration', ['email' => 'Email'], 'Register');
   }
 
   /**
@@ -49,7 +49,7 @@ class Registration {
    * @return void
    */
   public function register_user() {
-    $this->verify_ajax_request();
+    $this->verify_nonce('registration');
 
     $email = $this->validate_email($_POST['email']);
 
@@ -59,12 +59,13 @@ class Registration {
 
     $random_user = $this->random_user_api->get_random_user();
 
-    $user_id = wp_insert_user([
+    $user_id = wp_insert_user(array(
       'user_login' => $email,
       'user_email' => $email,
-      'user_pass' => wp_generate_password(),
-      'role' => 'subscriber',
-    ]);
+      'first_name' => $random_user['first_name'],
+      'last_name'  => $random_user['last_name'],
+      'role'       => 'cool_kid',
+    ));
 
     if (is_wp_error($user_id)) {
       wp_send_json_error('Failed to create user');
@@ -86,6 +87,10 @@ class Registration {
     update_user_meta($user_id, 'first_name', $user_data['first_name']);
     update_user_meta($user_id, 'last_name', $user_data['last_name']);
     update_user_meta($user_id, 'country', $user_data['country']);
+    update_user_meta($user_id, 'address_street', $user_data['address']['street']);
+    update_user_meta($user_id, 'address_city', $user_data['address']['city']);
+    update_user_meta($user_id, 'address_state', $user_data['address']['state']);
+    update_user_meta($user_id, 'address_postcode', $user_data['address']['postcode']);
     update_user_meta($user_id, 'cool_kids_role', 'Cool Kid');
   }
 }
