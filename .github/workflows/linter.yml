@@ -15,8 +15,9 @@ jobs:
       - name: VIPCS check
         uses: 10up/wpcs-action@stable
         with:
-          standard: '10up-Default'
+          standard: 'WordPress'
           extra_args: '--report-json=./phpcs.json'
+          use_local_config: 'true'
       - name: Update summary
         run: |
           npm i -g github:10up/phpcs-json-to-md
