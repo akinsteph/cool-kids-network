@@ -1,7 +1,7 @@
 <?php
 
 /**
- * RoleChangeAPI.php
+ * RoleChangeAPI.php.
  *
  * This file contains the RoleChangeAPI class, which handles the REST API endpoints for changing user roles.
  *
@@ -13,13 +13,14 @@ namespace CoolKidsNetwork\API;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * RoleChangeAPI.php
+ * RoleChangeAPI.php.
  *
  * This file contains the RoleChangeAPI class, which handles the REST API endpoints for changing user roles.
  *
  * @package CoolKidsNetwork
  */
-class RoleChangeAPI {
+class RoleChangeAPI
+{
 	use Singleton;
 
 	/**
@@ -27,30 +28,32 @@ class RoleChangeAPI {
 	 *
 	 * Hooks the REST API endpoints for changing user roles.
 	 */
-	protected function __construct() {
-		add_action('rest_api_init', array($this, 'register_endpoints'));
+	protected function __construct()
+	{
+		add_action('rest_api_init', [$this, 'register_endpoints']);
 	}
 
 	/**
 	 * Registers the REST API endpoints for changing user roles.
 	 */
-	public function register_endpoints() {
-		register_rest_route('cool-kids-network/v1', '/change-role', array(
+	public function register_endpoints()
+	{
+		register_rest_route('cool-kids-network/v1', '/change-role', [
 			'methods' => 'POST',
-			'callback' => array($this, 'change_user_role'),
-			'permission_callback' => array($this, 'check_admin_permissions'),
-			'args' => array(
-				'user_identifier' => array(
+			'callback' => [$this, 'change_user_role'],
+			'permission_callback' => [$this, 'check_admin_permissions'],
+			'args' => [
+				'user_identifier' => [
 					'required' => true,
 					'type' => 'string',
-				),
-				'new_role' => array(
+				],
+				'new_role' => [
 					'required' => true,
 					'type' => 'string',
-					'enum' => array('cool_kid', 'cooler_kid', 'coolest_kid'),
-				),
-			),
-		));
+					'enum' => ['cool_kid', 'cooler_kid', 'coolest_kid'],
+				],
+			],
+		]);
 	}
 
 	/**
@@ -59,7 +62,8 @@ class RoleChangeAPI {
 	 * @param \WP_REST_Request $request The REST API request object.
 	 * @return \WP_REST_Response|\WP_Error The REST API response or error.
 	 */
-	public function change_user_role($request) {
+	public function change_user_role($request)
+	{
 		$user_identifier = sanitize_text_field($request['user_identifier']);
 		$new_role = sanitize_text_field($request['new_role']);
 
@@ -75,12 +79,12 @@ class RoleChangeAPI {
 		}
 
 		if (!$user) {
-			return new \WP_Error('user_not_found', 'User not found', array('status' => 404));
+			return new \WP_Error('user_not_found', 'User not found', ['status' => 404]);
 		}
 
 		$user->set_role($new_role);
 
-		return new \WP_REST_Response(array('message' => 'User role updated successfully'), 200);
+		return new \WP_REST_Response(['message' => 'User role updated successfully'], 200);
 	}
 
 	/**
@@ -88,7 +92,8 @@ class RoleChangeAPI {
 	 *
 	 * @return bool True if the user has admin permissions, false otherwise.
 	 */
-	public function check_admin_permissions() {
+	public function check_admin_permissions()
+	{
 		return current_user_can('manage_options');
 	}
 }

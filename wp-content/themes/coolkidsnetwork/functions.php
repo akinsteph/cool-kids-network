@@ -6,7 +6,7 @@
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @since Cool Kids Network 1.0
- * 
+ *
  * @package CoolKidsNetwork
  */
 

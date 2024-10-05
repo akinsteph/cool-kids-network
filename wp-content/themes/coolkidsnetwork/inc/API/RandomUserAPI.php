@@ -50,17 +50,17 @@ class RandomUserAPI {
 
     $user = $data['results'][0];
 
-    return array(
+    return [
       'first_name' => sanitize_text_field($user['name']['first']),
-      'last_name'  => sanitize_text_field($user['name']['last']),
-      'email'      => sanitize_email($user['email']),
-      'country'    => sanitize_text_field($user['location']['country']),
-      'address'    => array(
-        'street'     => sanitize_text_field($user['location']['street']['name'] . ' ' . $user['location']['street']['number']),
-        'city'       => sanitize_text_field($user['location']['city']),
-        'state'      => sanitize_text_field($user['location']['state']),
-        'postcode'   => sanitize_text_field($user['location']['postcode']),
-      ),
-    );
+      'last_name' => sanitize_text_field($user['name']['last']),
+      'email' => sanitize_email($user['email']),
+      'country' => sanitize_text_field($user['location']['country']),
+      'address' => [
+        'street' => sanitize_text_field($user['location']['street']['name'] . ' ' . $user['location']['street']['number']),
+        'city' => sanitize_text_field($user['location']['city']),
+        'state' => sanitize_text_field($user['location']['state']),
+        'postcode' => sanitize_text_field($user['location']['postcode']),
+      ],
+    ];
   }
 }

@@ -1,11 +1,10 @@
 <?php
 
 /**
- * The main template file
+ * The main template file.
  *
  * @package CoolKidsNetwork
  */
-
 get_header();
 ?>
 
@@ -21,7 +20,7 @@ get_header();
 	else :
 		get_template_part('template-parts/content', 'none');
 	endif;
-	?>
+?>
 </main>
 
 <?php

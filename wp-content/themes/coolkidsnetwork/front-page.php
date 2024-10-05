@@ -1,11 +1,10 @@
 <?php
 
 /**
- * The template for displaying the front page
+ * The template for displaying the front page.
  *
  * @package CoolKidsNetwork
  */
-
 get_header();
 ?>
 
@@ -17,7 +16,7 @@ get_header();
 			the_content();
 		endwhile;
 	endif;
-	?>
+?>
 </main>
 
 <?php
