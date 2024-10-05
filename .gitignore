@@ -6,7 +6,9 @@
 /wp-content/uploads
 /vendor
 /node_modules
+/wp-content/index.php
 /wp-content/cache
+/wp-content/themes/index.php
 /wp-content/themes/twentytwentyfour
 /wp-content/themes/coolkidsnetwork/node_modules
 /wp-content/themes/coolkidsnetwork/.phpcs.xml
