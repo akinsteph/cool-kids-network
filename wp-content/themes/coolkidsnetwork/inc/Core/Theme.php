@@ -40,6 +40,7 @@ class Theme {
 		CharacterManagement::get_instance();
 		RandomUserAPI::get_instance();
 		RoleChangeAPI::get_instance();
+		ErrorHandler::get_instance();
 	}
 
 	/**
