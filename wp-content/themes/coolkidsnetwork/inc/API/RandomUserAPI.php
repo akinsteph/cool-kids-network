@@ -3,7 +3,7 @@
 /**
  * RandomUserAPI class for the Cool Kids Network.
  *
- * @package Cool Kids Network
+ * @package CoolKidsNetwork
  */
 
 namespace CoolKidsNetwork\API;
