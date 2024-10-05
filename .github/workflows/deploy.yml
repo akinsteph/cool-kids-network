@@ -36,7 +36,7 @@ jobs:
           HOSTINGER_PATH: ${{ secrets.HOSTINGER_PATH }}
         run: |
           # Transfer files using rsync 
-          rsync -avz -e "ssh -p 65002" --update --exclude={'.git','.github','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','wp-content/themes/coolkidsnetwork/vendor','phpcs.xml','phpcs.xml.dist','deploy_key','.env', 'vendor'} $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
+          rsync -avz -e "ssh -p 65002" --update --exclude={'.git','.github','.gitignore','wp-content/uploads','phpunit.xml','wp-content/themes/coolkidsnetwork/tests','wp-content/themes/coolkidsnetwork/vendor','phpcs.xml','phpcs.xml.dist','deploy_key','.env', 'vendor'} $GITHUB_WORKSPACE/ $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH
           
           # Install theme Composer dependencies
           ssh -p 65002 $HOSTINGER_USER@$HOSTINGER_HOST "cd $HOSTINGER_PATH/wp-content/themes/coolkidsnetwork && composer install --no-dev --optimize-autoloader"
