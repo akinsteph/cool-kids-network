@@ -11,6 +11,7 @@ use CoolKidsNetwork\API\RoleChangeAPI;
 use CoolKidsNetwork\Features\CharacterManagement;
 use CoolKidsNetwork\Features\Login;
 use CoolKidsNetwork\Features\Registration;
+use CoolKidsNetwork\Features\RoleManager;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
@@ -39,6 +40,7 @@ class Theme {
 		Login::get_instance();
 		CharacterManagement::get_instance();
 		RandomUserAPI::get_instance();
+		RoleManager::get_instance();
 		RoleChangeAPI::get_instance();
 	}
 
