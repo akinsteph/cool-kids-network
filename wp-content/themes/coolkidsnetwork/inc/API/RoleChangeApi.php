@@ -11,6 +11,7 @@
 namespace CoolKidsNetwork\API;
 
 use CoolKidsNetwork\Traits\Singleton;
+use CoolKidsNetwork\Features\RoleManager;
 
 /**
  * RoleChangeAPI.php.
@@ -19,25 +20,28 @@ use CoolKidsNetwork\Traits\Singleton;
  *
  * @package CoolKidsNetwork
  */
-class RoleChangeAPI
-{
+class RoleChangeAPI {
 	use Singleton;
+
+	/**
+	 * @var RoleManager $role_manager Instance of the RoleManager class.
+	 */
+	private $role_manager;
 
 	/**
 	 * Constructor for the RoleChangeAPI class.
 	 *
 	 * Hooks the REST API endpoints for changing user roles.
 	 */
-	protected function __construct()
-	{
-		add_action('rest_api_init', [$this, 'register_endpoints']);
+	protected function __construct() {
+		$this->role_manager = RoleManager::get_instance();
+		add_action('rest_api_init', array($this, 'register_endpoints'));
 	}
 
 	/**
 	 * Registers the REST API endpoints for changing user roles.
 	 */
-	public function register_endpoints()
-	{
+	public function register_endpoints() {
 		register_rest_route('cool-kids-network/v1', '/change-role', [
 			'methods' => 'POST',
 			'callback' => [$this, 'change_user_role'],
@@ -50,7 +54,7 @@ class RoleChangeAPI
 				'new_role' => [
 					'required' => true,
 					'type' => 'string',
-					'enum' => ['cool_kid', 'cooler_kid', 'coolest_kid'],
+					'enum' => array_keys($this->role_manager->get_custom_roles()),
 				],
 			],
 		]);
@@ -62,21 +66,15 @@ class RoleChangeAPI
 	 * @param \WP_REST_Request $request The REST API request object.
 	 * @return \WP_REST_Response|\WP_Error The REST API response or error.
 	 */
-	public function change_user_role($request)
-	{
+	public function change_user_role($request) {
 		$user_identifier = sanitize_text_field($request['user_identifier']);
 		$new_role = sanitize_text_field($request['new_role']);
 
-		// Check if user identifier is an email
-		if (is_email($user_identifier)) {
-			$user = get_user_by('email', $user_identifier);
-		} else {
-			// Assume it's a name
-			$name_parts = explode(' ', $user_identifier);
-			$first_name = $name_parts[0];
-			$last_name = isset($name_parts[1]) ? $name_parts[1] : '';
-			$user = get_user_by('login', $first_name . ' ' . $last_name);
+		if (!$this->role_manager->is_valid_role($new_role)) {
+			return new \WP_Error('invalid_role', 'Invalid role specified', ['status' => 400]);
 		}
+
+		$user = $this->get_user_by_identifier($user_identifier);
 
 		if (!$user) {
 			return new \WP_Error('user_not_found', 'User not found', ['status' => 404]);
@@ -87,13 +85,30 @@ class RoleChangeAPI
 		return new \WP_REST_Response(['message' => 'User role updated successfully'], 200);
 	}
 
+
 	/**
-	 * Checks if the current user has admin permissions.
+	 * Checks if the current user has permission to change roles.
 	 *
-	 * @return bool True if the user has admin permissions, false otherwise.
+	 * @return bool True if the user has permission, false otherwise.
 	 */
-	public function check_admin_permissions()
-	{
+	public function check_admin_permissions() {
 		return current_user_can('manage_options');
+	}
+
+	/**
+	 * Retrieves a user by email or name.
+	 *
+	 * @param string $identifier The user's email or name.
+	 * @return WP_User|false The user object if found, false otherwise.
+	 */
+	private function get_user_by_identifier($identifier) {
+		if (is_email($identifier)) {
+			return get_user_by('email', $identifier);
+		} else {
+			$name_parts = explode(' ', $identifier);
+			$first_name = $name_parts[0];
+			$last_name = isset($name_parts[1]) ? $name_parts[1] : '';
+			return get_user_by('login', $first_name . ' ' . $last_name);
+		}
 	}
 }
