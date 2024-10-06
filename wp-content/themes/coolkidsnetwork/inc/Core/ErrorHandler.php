@@ -28,8 +28,8 @@ class ErrorHandler {
 	 * Sets up error and exception handlers.
 	 */
 	protected function __construct() {
-		set_error_handler([$this, 'handle_error']);
-		set_exception_handler([$this, 'handle_exception']);
+		set_error_handler(array($this, 'handle_error'));
+		set_exception_handler(array($this, 'handle_exception'));
 	}
 
 
