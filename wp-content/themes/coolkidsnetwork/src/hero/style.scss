@@ -1,0 +1,175 @@
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(252, 201, 138, 0.4);
+	}
+
+	70% {
+		box-shadow: 0 0 0 10px rgba(252, 201, 138, 0);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(252, 201, 138, 0);
+	}
+}
+
+.wp-block-cool-kids-network-hero {
+	/* Full screen styling */
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	/* Background styling */
+	background-size: cover;
+	background-position: center;
+
+
+	.hero {
+		&-logo {
+			margin-bottom: 2rem;
+			text-align: center;
+
+			img {
+				max-width: 200px;
+				height: auto;
+			}
+		}
+
+		&-content {
+			color: #3ecfec;
+
+			/* Typography */
+			h2 {
+				font-size: 3.5rem;
+				max-width: 900px;
+				margin-bottom: 1rem;
+				animation: slideUp 0.8s ease-out 0.2s both;
+			}
+
+			p {
+				font-size: 2rem;
+				max-width: 600px;
+				margin: 0 auto 1rem;
+				animation: slideUp 0.8s ease-out 0.4s both;
+			}
+
+			/* Responsive styles */
+			@media (max-width: 768px) {
+				h2 {
+					font-size: 2rem;
+				}
+
+				p {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		/* Overlay styles */
+		&-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 90%);
+			// background: #00000021;
+			z-index: 1;
+		}
+
+		/* Content styles */
+		&-content {
+			position: relative;
+			z-index: 2;
+			height: 100%;
+			width: 100%;
+			padding: 2rem;
+			box-sizing: border-box;
+
+			/* Flexbox for centering content */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			/* Basic styling */
+			color: #fff;
+			text-align: center;
+
+			max-width: 900px;
+			background-color: #424e61d9;
+			min-height: 50%;
+			height: max-content;
+			border-radius: 40px;
+		}
+
+		/* Button styles */
+		&-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			margin-top: 1rem;
+			animation: slideUp 0.8s ease-out 0.8s both;
+
+			.wp-block-button__link {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0 60px;
+				height: 60px;
+				border-radius: 40px;
+				background: linear-gradient(180deg, #7ab5ee, #54a0e8, #3b8ed9);
+				background-color: #2696F5;
+				color: #F7FAFC;
+				font-size: 20px;
+				font-weight: 600;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				animation: pulse 2s infinite;
+				text-transform: capitalize;
+
+				&:hover {
+					transform: scale(1.05);
+					box-shadow: 0 4px 15px rgba(84, 160, 232, 0.4);
+				}
+
+				&:nth-child(2) {
+					background: linear-gradient(90deg, #fdd687, #fcc98a, #f69771);
+					background-color: #F4C753;
+					color: #1c1c1c;
+					animation: pulse 3s infinite;
+				}
+
+				@media (max-width: 768px) {
+					font-size: 16px;
+					padding: 0 40px;
+					height: 48px;
+					border-radius: 24px;
+				}
+			}
+		}
+	}
+
+
+
+}
+
+/* Animations */
+@keyframes slideUp {
+	from {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}

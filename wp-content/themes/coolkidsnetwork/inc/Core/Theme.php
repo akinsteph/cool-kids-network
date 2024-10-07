@@ -12,6 +12,7 @@ use CoolKidsNetwork\Features\CharacterManagement;
 use CoolKidsNetwork\Features\Login;
 use CoolKidsNetwork\Features\Registration;
 use CoolKidsNetwork\Features\RoleManager;
+use CoolKidsNetwork\Features\Blocks;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
@@ -43,6 +44,7 @@ class Theme {
 		RandomUserAPI::get_instance();
 		RoleManager::get_instance();
 		RoleChangeAPI::get_instance();
+		Blocks::get_instance();
 	}
 
 	/**
@@ -51,10 +53,5 @@ class Theme {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script('cool-kids-network', get_template_directory_uri() . '/assets/js/cool-kids-network.js', ['jquery'], '1.0', true);
-		wp_localize_script('cool-kids-network', 'coolKidsNetwork', [
-			'ajaxurl' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce('cool-kids-network-nonce'),
-		]);
 	}
 }

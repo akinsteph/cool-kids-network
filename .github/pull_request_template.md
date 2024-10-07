@@ -21,8 +21,8 @@
 
 <!-- Put an x in the boxes that apply. You can also fill these out after creating the PR. If you're unsure about any of them, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code. -->
 
-- [ ] I have created a specific branch for this pull request before committing, starting off the current HEAD of `main` branch. 
-- [ ] I'm submitting to the `main`, branch.
+- [ ] I have created a specific branch for this pull request before committing, starting off the current HEAD of `develop` branch. 
+- [ ] I'm submitting to the `develop`, branch.
 - [ ] All input in my code are sanitized according to [WordPress](https://developer.wordpress.org/apis/security/sanitizing/) standard.
 - [ ] All output in my code are escaped according to [WordPress](https://developer.wordpress.org/apis/security/escaping/) standard.
 - [ ] The code I'm sending follows [WordPress Validating, sanitizing, and escaping](https://docs.wpvip.com/technical-references/security/validating-sanitizing-and-escaping/) guideline.
