@@ -22,3 +22,6 @@
 license.txt
 readme.html
 /composer.json
+.DS_Store
+.idea/
+.vscode/

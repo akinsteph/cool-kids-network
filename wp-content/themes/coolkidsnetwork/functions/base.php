@@ -36,12 +36,6 @@ function setup_theme() {
 	add_theme_support('post-thumbnails');
 	add_theme_support('html5', ['search-form']);
 	add_theme_support('custom-logo');
-	add_theme_support('custom-header');
-	add_theme_support('custom-background');
-	add_theme_support('custom-footer');
-	add_theme_support('custom-menu');
-	add_theme_support('custom-post-type');
-
 
 	load_theme_textdomain('coolkidsnetwork', get_template_directory() . '/languages');
 

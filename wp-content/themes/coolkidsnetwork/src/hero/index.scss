@@ -1,0 +1,98 @@
+@keyframes editorFadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.wp-block-cool-kids-network-hero {
+	/* Styles specific to the editor */
+	min-height: 500px;
+	padding: 20px;
+	box-sizing: border-box;
+	animation: editorFadeIn 0.5s ease-out;
+
+	// Center content in the editor
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: #F7FAFC;
+
+
+	.hero-logo {
+		margin-bottom: 2rem;
+		text-align: center;
+
+		img {
+			max-width: 200px;
+			height: auto;
+		}
+	}
+
+	// Style placeholder text
+	.block-editor-rich-text__editable {
+		&[data-empty="true"]::before {
+			color: #888;
+		}
+	}
+
+	// Style buttons in the editor
+	.hero-buttons,
+	.hero-logged-in-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+		margin-top: 1rem;
+		animation: slideUp 0.8s ease-out 0.8s both;
+
+		.wp-block-button__link {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 60px;
+			height: 60px;
+			border-radius: 40px;
+			background: linear-gradient(180deg, #7ab5ee, #54a0e8, #3b8ed9);
+			background-color: #2696F5;
+			color: #F7FAFC;
+			font-size: 20px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			animation: pulse 2s infinite;
+			text-transform: capitalize;
+
+			&:hover {
+				transform: scale(1.05);
+				box-shadow: 0 4px 15px rgba(84, 160, 232, 0.4);
+			}
+
+			&:nth-child(2) {
+				background: linear-gradient(90deg, #fdd687, #fcc98a, #f69771);
+				background-color: #F4C753;
+				color: #1c1c1c;
+				animation: pulse 3s infinite;
+			}
+
+			@media screen and (max-width: 768px) {
+				font-size: 16px;
+				padding: 0 40px;
+				height: 48px;
+				border-radius: 24px;
+			}
+		}
+	}
+
+	// Add subtle animation when the block is selected
+	&.is-selected {
+		animation: editorFadeIn 0.3s ease-out;
+	}
+
+	// Add transition for smooth color changes
+	transition: background-color 0.3s ease;
+}
