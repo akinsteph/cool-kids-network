@@ -22,6 +22,9 @@ registerBlockType(HeroBlock, {
 	 */
 	edit: Edit,
 
+	/**
+	 * @see ./save.js
+	 */
 	save: function () {
 		return null;
 	},

@@ -18,11 +18,8 @@ class Blocks {
 	 */
 	private $blocks = [
 		'hero',
-		'signup-form',
-		'login-form',
-		'character-data',
+		'character-list',
 		'user-dashboard',
-		'other-characters',
 	];
 
 	/**
@@ -56,12 +53,10 @@ class Blocks {
 			return;
 		}
 
-		$args = [];
-
 		// Add render callback for the hero block
-		if (in_array($block_name, ['hero'])) {
+		if (in_array($block_name, ['hero', 'character-list'])) {
 			register_block_type_from_metadata(COOL_KIDS_NETWORK_DIR . "/build/{$block_name}/", [
-				'render_callback' => [$this, 'render_' . $block_name . '_block'],
+				'render_callback' => [$this, 'render_' . str_replace('-', '_', $block_name) . '_block'],
 			]);
 		}
 
@@ -142,14 +137,14 @@ class Blocks {
 
 				<div class="hero-buttons">
 					<?php if (!is_user_logged_in()) : ?>
-						<?php foreach ($logged_out_buttons as $button) : ?>
-							<a href="<?php echo esc_url($button['link']); ?>" class="wp-block-button__link">
+						<?php foreach ($logged_out_buttons as $index => $button) : ?>
+							<a href="<?php echo esc_url($button['link']); ?>" class="button wp-block-button__link<?php echo ($index === 1) ? ' secondary' : ''; ?>">
 								<?php echo esc_html($button['text']); ?>
 							</a>
 						<?php endforeach; ?>
 					<?php else : ?>
-						<?php foreach ($logged_in_buttons as $button) : ?>
-							<a href="<?php echo esc_url($button['link']); ?>" class="wp-block-button__link">
+						<?php foreach ($logged_in_buttons as $index => $button) : ?>
+							<a href="<?php echo esc_url($button['link']); ?>" class="button wp-block-button__link<?php echo ($index === 1) ? ' secondary' : ''; ?>">
 								<?php echo esc_html($button['text']); ?>
 							</a>
 						<?php endforeach; ?>
@@ -159,5 +154,57 @@ class Blocks {
 		</section>
 <?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Renders the other characters block.
+	 *
+	 * @param array $attributes The block attributes.
+	 * @param string $content The block content.
+	 * @return string The rendered block.
+	 */
+	public function render_character_list_block($attributes, $content) {
+		if (!is_user_logged_in()) {
+			return '<p>' . __('Please log in to view other characters.', 'cool-kids-network') . '</p>';
+		}
+
+		$current_user = wp_get_current_user();
+		$current_user_role = $current_user->roles[0];
+
+		// $allowed_roles = ['adminsitrator', 'cool_kid', 'cooler_kid', 'coolest_kid'];
+		// if (!in_array($current_user_role, $allowed_roles)) {
+		// 	return '<p>' . __('You do not have permission to view other characters.', 'cool-kids-network') . '</p>';
+		// }
+
+		$character_management = CharacterManagement::get_instance();
+		$characters = $character_management->fetch_characters($current_user_role);
+
+		if (empty($characters)) {
+			return '<p>' . __('No other characters found.', 'cool-kids-network') . '</p>';
+		}
+
+		$output = '<div class="other-characters">';
+		$output .= '<h2>' . __('Other Characters', 'cool-kids-network') . '</h2>';
+		$output .= '<ul>';
+
+		foreach ($characters as $character) {
+			$output .= '<li>';
+			$output .= '<h3>' . esc_html($character['name']) . '</h3>';
+			$output .= '<p><strong>' . __('Role:', 'cool-kids-network') . '</strong> ' . esc_html($character['role']) . '</p>';
+
+			if (isset($character['country'])) {
+				$output .= '<p><strong>' . __('Country:', 'cool-kids-network') . '</strong> ' . esc_html($character['country']) . '</p>';
+			}
+
+			if (isset($character['email'])) {
+				$output .= '<p><strong>' . __('Email:', 'cool-kids-network') . '</strong> ' . esc_html($character['email']) . '</p>';
+			}
+
+			$output .= '</li>';
+		}
+
+		$output .= '</ul></div>';
+
+		return $output;
 	}
 }

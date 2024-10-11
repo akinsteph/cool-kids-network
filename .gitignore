@@ -17,6 +17,8 @@
 /wp-content/themes/coolkidsnetwork/.php-cs-fixer.cache
 *.log
 /*.php
+/*.pdf
+*.map
 .env
 .htaccess
 license.txt

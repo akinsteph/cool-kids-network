@@ -40,7 +40,14 @@ class Registration {
    * @return string The registration form HTML.
    */
   public function registration_form_shortcode() {
-    return $this->render_form('registration', ['email' => 'Email'], 'Register');
+    $email_field = [
+      'type' => 'email',
+      'name' => 'email',
+      'id' => 'signup-email',
+      'placeholder' => 'Email',
+      'required' => true
+    ];
+    return $this->render_form('registration', ['email' => $email_field], 'Register');
   }
 
   /**
@@ -49,9 +56,18 @@ class Registration {
    * @return void
    */
   public function register_user() {
-    $this->verify_nonce('registration');
+    $encrypted_data = $_POST['data'];
+    $decrypted_data = $this->decrypt_data($encrypted_data);
 
-    $email = $this->validate_email($_POST['email']);
+    if (!isset($decrypted_data['nonce']) || !wp_verify_nonce($decrypted_data['nonce'], 'cool-kids-registration')) {
+      wp_send_json_error('Invalid nonce');
+    }
+
+    if (!isset($decrypted_data['email'])) {
+      wp_send_json_error('Email is required');
+    }
+
+    $email = $this->validate_email($decrypted_data['email']);
 
     if (email_exists($email)) {
       wp_send_json_error('Email already registered');

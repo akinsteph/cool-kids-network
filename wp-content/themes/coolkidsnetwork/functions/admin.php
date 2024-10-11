@@ -15,7 +15,7 @@
  * @return void
  */
 function enqueue_admin_styles() {
-	wp_enqueue_style('admin-styles', COOL_KIDS_NETWORK_ASSET_URL . '/css/admin.css', [], '1.0.0');
+	wp_enqueue_style('admin-styles', COOL_KIDS_NETWORK_ASSET_URL . '/css/admin.css', [], COOL_KIDS_NETWORK_VERSION);
 }
 
 add_action('admin_enqueue_scripts', 'enqueue_admin_styles');
