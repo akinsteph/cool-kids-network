@@ -30,7 +30,7 @@ class RegistrationTest extends TestCase {
 		$this->random_user_api_mock = Mockery::mock('CoolKidsNetwork\API\RandomUserAPI');
 		$this->random_user_api_mock->shouldReceive('get_instance')->andReturn($this->random_user_api_mock);
 
-		$this->registration = new Registration();
+		$this->registration = Registration::get_instance();
 		$this->registration->random_user_api = $this->random_user_api_mock;
 	}
 
