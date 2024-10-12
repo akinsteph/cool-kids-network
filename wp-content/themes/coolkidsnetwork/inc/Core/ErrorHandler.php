@@ -1,11 +1,12 @@
 <?php
 
 /**
- * ErrorHandler.php.
+ * ErrorHandler.php
  *
  * This file contains the ErrorHandler class, which handles error and exception management for the Cool Kids Network.
  *
  * @package CoolKidsNetwork
+ *
  */
 
 namespace CoolKidsNetwork\Core;
@@ -17,8 +18,8 @@ use CoolKidsNetwork\Traits\Singleton;
  *
  * Handles error and exception handling for the Cool Kids Network.
  */
-class ErrorHandler
-{
+
+class ErrorHandler {
 	use Singleton;
 
 	/**
@@ -26,11 +27,11 @@ class ErrorHandler
 	 *
 	 * Sets up error and exception handlers.
 	 */
-	protected function __construct()
-	{
-		set_error_handler([$this, 'handle_error']);
-		set_exception_handler([$this, 'handle_exception']);
+	protected function __construct() {
+		set_error_handler(array($this, 'handle_error'));
+		set_exception_handler(array($this, 'handle_exception'));
 	}
+
 
 	/**
 	 * Handles PHP errors.
@@ -45,8 +46,7 @@ class ErrorHandler
 	 *
 	 * @return bool True if the error was handled, false to use PHP's internal error handler.
 	 */
-	public function handle_error($errno, $errstr, $errfile, $errline)
-	{
+	public function handle_error($errno, $errstr, $errfile, $errline) {
 		if (!(error_reporting() & $errno)) {
 			return false;
 		}
@@ -69,9 +69,8 @@ class ErrorHandler
 	 *
 	 * @param \Exception $exception The uncaught exception.
 	 */
-	public function handle_exception($exception)
-	{
-		$error_message = 'Uncaught Exception: ' . $exception->getMessage() . ' in file ' . $exception->getFile() . ' on line ' . $exception->getLine();
+	public function handle_exception($exception) {
+		$error_message = "Uncaught Exception: " . $exception->getMessage() . " in file " . $exception->getFile() . " on line " . $exception->getLine();
 		$this->log_error($error_message);
 
 		if (defined('WP_DEBUG') && WP_DEBUG) {
@@ -86,8 +85,7 @@ class ErrorHandler
 	 *
 	 * @param string $message The error message to log.
 	 */
-	private function log_error($message)
-	{
+	private function log_error($message) {
 		error_log($message);
 	}
 }

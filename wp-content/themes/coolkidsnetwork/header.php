@@ -1,14 +1,15 @@
 <?php
 
 /**
- * The header for our theme.
+ * The header for our theme
  *
  * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
+ * 
  * @package CoolKidsNetwork
  */
+
 if (!defined('TITLE')) {
 	define('TITLE', is_single() ? get_the_title() : get_bloginfo('title'));
 }
@@ -17,7 +18,7 @@ if (!defined('DESCRIPTION')) {
 }
 if (!defined('PERMALINK')) {
 	global $wp;
-	define('PERMALINK', is_front_page() ? get_bloginfo('url') : (is_single() ? get_the_permalink() : home_url(add_query_arg([], $wp->request))));
+	define('PERMALINK', is_front_page() ? get_bloginfo('url') : (is_single() ? get_the_permalink() : home_url(add_query_arg(array(), $wp->request))));
 }
 
 ?>
@@ -44,7 +45,7 @@ if (!defined('PERMALINK')) {
 			if (has_custom_logo()):
 				echo get_custom_logo();
 			endif;
-?>
+			?>
 			<?php if (is_user_logged_in()) : ?>
 				<button class="hamburger-menu" aria-label="Toggle menu">
 					<span></span>
