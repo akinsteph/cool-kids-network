@@ -27,7 +27,7 @@ trait FormRenderer {
 		ob_start();
 ?>
 		<form id="cool-kids-<?php echo esc_attr($action); ?>-form" class="authentication-form-element">
-			<?php wp_nonce_field("cool-kids-{$action}", "cool-kids-{$action}-nonce"); ?>
+			<?php echo wp_nonce_field("cool-kids-{$action}", "cool-kids-{$action}-nonce"); ?>
 			<div id="<?php echo esc_attr($action); ?>-error" class="error-message" style="display: none;"></div>
 			<div id="<?php echo esc_attr($action); ?>-success" class="success-message" style="display: none;"></div>
 			<?php
@@ -98,6 +98,7 @@ trait FormRenderer {
 		for ($i = 0; $i < strlen($data_string); $i++) {
 			$encrypted .= chr(ord($data_string[$i]) ^ ord($key[$i % strlen($key)]));
 		}
+
 		return base64_encode($encrypted);
 	}
 
@@ -108,6 +109,7 @@ trait FormRenderer {
 		for ($i = 0; $i < strlen($data); $i++) {
 			$decrypted .= chr(ord($data[$i]) ^ ord($key[$i % strlen($key)]));
 		}
+
 		return json_decode($decrypted, true);
 	}
 }
