@@ -11,7 +11,7 @@ namespace CoolKidsNetwork\Features;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class RoleManager
+ * Class RoleManager.
  *
  * Manages custom user roles for the Cool Kids Network theme.
  * This class is responsible for creating, removing, and validating custom roles.
@@ -20,12 +20,12 @@ class RoleManager {
 	use Singleton;
 
 	/**
-	 * @var array $custom_roles An array of custom roles and their display names.
+	 * @var array An array of custom roles and their display names.
 	 */
 	private $custom_roles = [
 		'cool_kid' => 'Cool Kid',
 		'cooler_kid' => 'Cooler Kid',
-		'coolest_kid' => 'Coolest Kid'
+		'coolest_kid' => 'Coolest Kid',
 	];
 
 	/**
@@ -33,8 +33,9 @@ class RoleManager {
 	 * Sets up action hooks for adding custom roles and deactivation hook for removing them.
 	 */
 	protected function __construct() {
-		add_action('init', array($this, 'add_custom_roles'));
-		register_deactivation_hook(__FILE__, array($this, 'remove_custom_roles'));
+		add_action('init', [$this, 'add_custom_roles']);
+
+		register_deactivation_hook(__FILE__, [$this, 'remove_custom_roles']);
 	}
 
 	/**
@@ -42,22 +43,26 @@ class RoleManager {
 	 * This method is called on the 'init' action hook.
 	 */
 	public function add_custom_roles() {
-		add_role('cool_kid', 'Cool Kid', [
-			'read' => true,
-			'view_own_character' => true
-		]);
+		$role_permissions = [
+			'cool_kid' => [
+				'read' => true,
+				'view_own_character' => true,
+			],
+			'cooler_kid' => [
+				'read' => true,
+				'view_own_character' => true,
+				'view_others_limited' => true,
+			],
+			'coolest_kid' => [
+				'read' => true,
+				'view_own_character' => true,
+				'view_others_full' => true,
+			],
+		];
 
-		add_role('cooler_kid', 'Cooler Kid', [
-			'read' => true,
-			'view_own_character' => true,
-			'view_others_limited' => true
-		]);
-
-		add_role('coolest_kid', 'Coolest Kid', [
-			'read' => true,
-			'view_own_character' => true,
-			'view_others_full' => true
-		]);
+		foreach ($this->custom_roles as $role => $display_name) {
+			add_role($role, $display_name, $role_permissions[$role]);
+		}
 	}
 
 	/**
