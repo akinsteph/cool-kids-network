@@ -46,3 +46,17 @@ The Cool Kids Network theme is built using a modular approach, leveraging WordPr
    - Includes features for user role assignment based on user input.
    - Integrates with RandomUserAPI for generating user details
    - Implements security measures like nonce verification and data encryption
+   
+2. **Login System** (`inc/Features/Login.php`):
+   - Manages user authentication
+   - Uses AJAX for a smooth login experience
+   
+3. **Character Creation** (`inc/Features/CharacterCreation.php`):
+   - Allows users to create and customize their cartoon characters
+   - Stores character data in user meta
+   
+4. **Dashboard** (`templates/dashboard-template.php`):
+   - Displays other users' characters
+   - Implements access control for logged-in users only
+   - Cooler Kid role sees user name and country
+   - Coolest Kid role sees all details including email and role
