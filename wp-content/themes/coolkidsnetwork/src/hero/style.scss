@@ -80,7 +80,6 @@
 			right: 0;
 			bottom: 0;
 			background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 90%);
-			// background: #00000021;
 			z-index: 1;
 		}
 
@@ -117,43 +116,6 @@
 			gap: 2rem;
 			margin-top: 1rem;
 			animation: slideUp 0.8s ease-out 0.8s both;
-
-			.wp-block-button__link {
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				padding: 0 60px;
-				height: 60px;
-				border-radius: 40px;
-				background: linear-gradient(180deg, #7ab5ee, #54a0e8, #3b8ed9);
-				background-color: #2696F5;
-				color: #F7FAFC;
-				font-size: 20px;
-				font-weight: 600;
-				text-decoration: none;
-				transition: all 0.3s ease;
-				animation: pulse 2s infinite;
-				text-transform: capitalize;
-
-				&:hover {
-					transform: scale(1.05);
-					box-shadow: 0 4px 15px rgba(84, 160, 232, 0.4);
-				}
-
-				&:nth-child(2) {
-					background: linear-gradient(90deg, #fdd687, #fcc98a, #f69771);
-					background-color: #F4C753;
-					color: #1c1c1c;
-					animation: pulse 3s infinite;
-				}
-
-				@media (max-width: 768px) {
-					font-size: 16px;
-					padding: 0 40px;
-					height: 48px;
-					border-radius: 24px;
-				}
-			}
 		}
 	}
 

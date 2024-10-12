@@ -4,6 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText, InspectorControls, URLInput, BlockControls, AlignmentToolbar, withColors, PanelColorSettings, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { PanelBody, Button, TextControl, SelectControl } from '@wordpress/components';
+import ServerSideRender from '@wordpress/server-side-render';
 import { useSelect } from '@wordpress/data';
 
 import './index.scss';
@@ -191,7 +192,7 @@ function Edit({ attributes, setAttributes, backgroundColor, setBackgroundColor }
 						{loggedOutButtons.map((button, index) => (
 							<RichText key={index}
 								tagName="a"
-								className="wp-block-button__link"
+								className="button wp-block-button__link"
 								value={button.text}
 								onChange={(newText) => updateButtonAt(index, 'loggedOutButtons', { text: newText })}
 								placeholder={__('Button text', 'coolkidsnetwork')}
@@ -203,7 +204,7 @@ function Edit({ attributes, setAttributes, backgroundColor, setBackgroundColor }
 						{loggedInButtons.map((button, index) => (
 							<RichText key={index}
 								tagName="a"
-								className="wp-block-button__link"
+								className={`button wp-block-button__link ${index === 1 ? 'secondary' : ''}`}
 								value={button.text}
 								onChange={(newText) => updateButtonAt(index, 'loggedInButtons', { text: newText })}
 								placeholder={__('Button text', 'coolkidsnetwork')}
@@ -213,6 +214,11 @@ function Edit({ attributes, setAttributes, backgroundColor, setBackgroundColor }
 					</div>
 				</div>
 			</section>
+
+			<ServerSideRender
+				block="cool-kids-network/hero"
+				attributes={attributes}
+			/>
 		</>
 	);
 }

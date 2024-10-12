@@ -12,58 +12,262 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: coolkidsnetwork
 Tags: Responsive, custom-blocks, custom-logo, custom-menu, featured-images, translation-ready
 */
-
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@75..125,300..700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@75..125,300..700&display=swap");
 /* Basic reset */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Fredoka', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Fredoka", sans-serif;
 }
 
 /* Smooth scrolling for a better experience when navigating to the section */
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-	font-family: 'Fredoka', sans-serif;
-	line-height: 1.6;
-	color: #F7FAFC;
-	background-color: #1c1c1c;
+  font-family: "Fredoka", sans-serif;
+  line-height: 1.6;
+  color: #F7FAFC;
+  background-color: #424e61;
 }
 
 .container {
-	width: 80%;
-	margin: auto;
-	overflow: hidden;
-	padding: 0 20px;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  margin: auto;
+  overflow: hidden;
+  padding: 0;
 }
 
-/* Header styles */
-.site-header {
-	background: #35424a;
-	color: #ffffff;
-	padding-top: 30px;
-	min-height: 70px;
-	border-bottom: #e8491d 3px solid;
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
 }
 
-.site-header .container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+h1 {
+  font-size: 50px;
 }
 
-.site-header .container .logo {
-	font-size: 24px;
-	font-weight: bold;
+h2 {
+  font-size: 36px;
 }
 
-.site-header .container .logo a {
-	color: #ffffff;
-	text-decoration: none;
+h3 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+h5 {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+h6 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+/* Input styles */
+input[type=text], input[type=email], input[type=password] {
+  width: 100%;
+  height: 50px;
+  border-radius: 20px;
+  border: none;
+  color: #1c1c1c;
+  min-width: 500px;
+  padding: 0 20px;
+  text-align: center;
+  font-style: italic;
+  font-size: 16px;
+  animation: slideIn 0.5s ease-out;
+  width: 100%;
+  max-width: 800px;
+}
+input[type=text]::placeholder, input[type=text]::-webkit-input-placeholder, input[type=text]:-ms-input-placeholder, input[type=text]::-moz-placeholder, input[type=email]::placeholder, input[type=email]::-webkit-input-placeholder, input[type=email]:-ms-input-placeholder, input[type=email]::-moz-placeholder, input[type=password]::placeholder, input[type=password]::-webkit-input-placeholder, input[type=password]:-ms-input-placeholder, input[type=password]::-moz-placeholder {
+  color: rgba(28, 28, 28, 0.2823529412);
+}
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+  outline: none;
+  box-shadow: 1px 1px 10px #2696F5;
+}
+@media screen and (max-width: 768px) {
+  input[type=text], input[type=email], input[type=password] {
+    width: 100%;
+    min-width: -moz-min-content;
+    min-width: min-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
+}
+
+button,
+.button,
+input[type=submit] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 60px;
+  height: 60px;
+  border-radius: 40px;
+  background: linear-gradient(180deg, #7ab5ee, #54a0e8, #3b8ed9);
+  background-color: #2696F5;
+  color: #F7FAFC;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+  animation: slideIn 0.5s ease-out;
+  text-transform: capitalize;
+  border: none;
+}
+button:hover,
+.button:hover,
+input[type=submit]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(84, 160, 232, 0.4);
+}
+button.secondary,
+.button.secondary,
+input[type=submit].secondary {
+  background: linear-gradient(90deg, #fdd687, #fcc98a, #f69771);
+  background-color: #F4C753;
+  color: #1c1c1c;
+  animation: pulse 3s infinite;
+}
+@media screen and (max-width: 768px) {
+  button,
+  .button,
+  input[type=submit] {
+    font-size: 16px;
+    padding: 0 40px;
+    height: 48px;
+    border-radius: 24px;
+  }
+}
+
+/* Authentication styles */
+.authentication-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  background-image: url("./assets/img/planet-and-rocket.png");
+  background-size: 882px auto;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+.authentication-wrapper .container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.authentication-form {
+  min-height: 400px;
+  height: -moz-max-content;
+  height: max-content;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 40px;
+  background-color: rgba(28, 28, 28, 0.2980392157);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  animation: fadeIn 1s ease-out;
+}
+.authentication-form-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.authentication-form p a {
+  text-decoration: underline;
+  font-style: italic;
+  color: #f69771;
+}
+
+/* Animations */
+.sparkles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 223, 0, 0.8);
+  border-radius: 50%;
+  animation: sparkle 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(252, 201, 138, 0.4);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(252, 201, 138, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(252, 201, 138, 0);
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

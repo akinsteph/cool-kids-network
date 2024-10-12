@@ -31,10 +31,7 @@ add_action('wp_enqueue_scripts', 'ckn_enqueue_assets');
  * @return void
  */
 function setup_theme() {
-
-	// Add theme support for title tag, post thumbnails, HTML5, custom logo, custom header, custom background, custom footer, custom menu, custom post type, custom category
 	add_theme_support('post-thumbnails');
-	add_theme_support('html5', ['search-form']);
 	add_theme_support('custom-logo');
 
 	load_theme_textdomain('coolkidsnetwork', get_template_directory() . '/languages');

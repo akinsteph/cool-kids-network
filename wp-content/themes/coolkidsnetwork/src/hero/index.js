@@ -8,7 +8,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import Edit from './edit';
-import Save from './save';
 import HeroBlock from './block.json';
 import './style.scss';
 
@@ -23,8 +22,7 @@ registerBlockType(HeroBlock, {
 	 */
 	edit: Edit,
 
-	/**
-	 * @see ./save.js
-	 */
-	save: Save,
+	save: function () {
+		return null;
+	},
 });

@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"description": "Cool Kids Network WordPress Theme",
 	"scripts": {
-		"build": "wp-scripts build",
-		"start": "wp-scripts start",
+		"build": "wp-scripts build && gulp style",
+		"start": "wp-scripts start && gulp watch",
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
 		"format": "wp-scripts format",
@@ -20,6 +20,10 @@
 	"author": "Stephen Akinola",
 	"license": "GPL-2.0-or-later",
 	"devDependencies": {
-		"@wordpress/scripts": "^30.0.0"
+		"@wordpress/scripts": "^30.1.0",
+		"gulp": "^5.0.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-postcss": "^10.0.0",
+		"gulp-sass": "^5.1.0"
 	}
 }

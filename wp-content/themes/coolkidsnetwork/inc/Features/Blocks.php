@@ -17,12 +17,7 @@ class Blocks {
 	 * @var array $blocks List of custom blocks to be registered.
 	 */
 	private $blocks = [
-		'hero',
-		'signup-form',
-		'login-form',
-		'character-data',
-		'user-dashboard',
-		'other-characters',
+		'hero'
 	];
 
 	/**
@@ -56,12 +51,10 @@ class Blocks {
 			return;
 		}
 
-		$args = [];
-
 		// Add render callback for the hero block
-		if (in_array($block_name, ['hero'])) {
+		if (in_array($block_name, ['hero', 'character-list'])) {
 			register_block_type_from_metadata(COOL_KIDS_NETWORK_DIR . "/build/{$block_name}/", [
-				'render_callback' => [$this, 'render_' . $block_name . '_block'],
+				'render_callback' => [$this, 'render_' . str_replace('-', '_', $block_name) . '_block'],
 			]);
 		}
 
@@ -142,14 +135,14 @@ class Blocks {
 
 				<div class="hero-buttons">
 					<?php if (!is_user_logged_in()) : ?>
-						<?php foreach ($logged_out_buttons as $button) : ?>
-							<a href="<?php echo esc_url($button['link']); ?>" class="wp-block-button__link">
+						<?php foreach ($logged_out_buttons as $index => $button) : ?>
+							<a href="<?php echo esc_url($button['link']); ?>" class="button wp-block-button__link<?php echo ($index === 1) ? ' secondary' : ''; ?>">
 								<?php echo esc_html($button['text']); ?>
 							</a>
 						<?php endforeach; ?>
 					<?php else : ?>
-						<?php foreach ($logged_in_buttons as $button) : ?>
-							<a href="<?php echo esc_url($button['link']); ?>" class="wp-block-button__link">
+						<?php foreach ($logged_in_buttons as $index => $button) : ?>
+							<a href="<?php echo esc_url($button['link']); ?>" class="button wp-block-button__link<?php echo ($index === 1) ? ' secondary' : ''; ?>">
 								<?php echo esc_html($button['text']); ?>
 							</a>
 						<?php endforeach; ?>
