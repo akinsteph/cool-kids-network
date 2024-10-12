@@ -338,6 +338,8 @@ header .user-nav a.logout-icon {
 
 /* Authentication styles */
 .authentication-wrapper {
+  display: flex;
+  align-items: center;
   overflow: hidden;
 }
 .authentication-wrapper .container {
