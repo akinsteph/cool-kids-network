@@ -98,12 +98,14 @@ input {
 		border-radius: 20px;
 		border: none;
 		color: #1c1c1c;
-		min-width: 300px;
+		min-width: 500px;
 		padding: 0 20px;
 		text-align: center;
 		font-style: italic;
 		font-size: 16px;
 		animation: slideIn 0.5s ease-out;
+		width: 100%;
+		max-width: 800px;
 
 		&::placeholder,
 		&::-webkit-input-placeholder,
@@ -115,6 +117,12 @@ input {
 		&:focus {
 			outline: none;
 			box-shadow: 1px 1px 10px #2696F5;
+		}
+
+		@media screen and (max-width: 768px) {
+			width: 100%;
+			min-width: min-content;
+			max-width: max-content;
 		}
 	}
 }
@@ -201,6 +209,13 @@ input[type="submit"] {
 			gap: 20px;
 		}
 
+		p {
+			a {
+				text-decoration: underline;
+				font-style: italic;
+				color: #f69771;
+			}
+		}
 	}
 }
 

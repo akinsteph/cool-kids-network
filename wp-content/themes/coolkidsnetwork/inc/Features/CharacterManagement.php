@@ -25,7 +25,7 @@ class CharacterManagement {
    * Hooks the shortcode for displaying character data.
    */
   protected function __construct() {
-    add_shortcode('cool_kids_character_data', [$this, 'display_character_data']);
+    add_shortcode('cool_kids_character_data', array($this, 'display_character_data'));
   }
 
   /**

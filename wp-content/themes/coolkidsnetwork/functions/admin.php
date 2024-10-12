@@ -19,3 +19,14 @@ function enqueue_admin_styles() {
 }
 
 add_action('admin_enqueue_scripts', 'enqueue_admin_styles');
+
+/**
+ * Remove the admin bar for non-admin users.
+ */
+add_filter('show_admin_bar', '__return_false');
+add_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar() {
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
+}
