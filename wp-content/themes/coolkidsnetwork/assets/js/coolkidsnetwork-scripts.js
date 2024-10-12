@@ -3,6 +3,7 @@ const CoolKidsJs = {
 		this.createSparkles();
 		this.initLoginForm();
 		this.initSignupForm();
+		this.initHamburgerMenu();
 	},
 
 	createSparkles: function () {
@@ -33,8 +34,20 @@ const CoolKidsJs = {
 		signupForm.addEventListener('submit', this.handleSignup.bind(this));
 	},
 
+	initHamburgerMenu: function () {
+		const hamburger = document.querySelector('.hamburger-menu');
+		const nav = document.querySelector('.user-nav');
+
+		if (!hamburger || !nav) return;
+
+		hamburger.addEventListener('click', function () {
+			nav.classList.toggle('open');
+			hamburger.classList.toggle('open');
+		});
+	},
+
 	handleLogin: function (event) {
-		event.preventDefault(); // This line is crucial
+		event.preventDefault();
 
 		const email = document.getElementById('login-email').value;
 		const errorElement = document.getElementById('login-error');
@@ -50,7 +63,7 @@ const CoolKidsJs = {
 			if (response.success) {
 				this.showSuccess(successElement, 'Logged in successfully!');
 				setTimeout(() => {
-					window.location.href = '/dashboard';
+					window.location.href = '/my-character';
 				}, 1500);
 			} else {
 				this.showError(errorElement, response.data || 'Login failed. Please try again.');
@@ -59,7 +72,7 @@ const CoolKidsJs = {
 	},
 
 	handleSignup: function (event) {
-		event.preventDefault(); // This line is crucial
+		event.preventDefault();
 
 		const email = document.getElementById('signup-email').value;
 		const errorElement = document.getElementById('registration-error');
@@ -150,8 +163,8 @@ const CoolKidsJs = {
 	removeAllNotifications: function () {
 		const notifications = document.querySelectorAll('.error-message, .success-message');
 		notifications.forEach(notification => {
-			notification.style.display = 'none';
 			notification.textContent = '';
+			notification.style.display = 'none';
 		});
 	},
 
