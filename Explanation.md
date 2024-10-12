@@ -221,6 +221,12 @@ To use the API:
      }'
    ```
 
+8. **Test Case Accounts**:
+   For testing purposes, you can use the following accounts:
+   - Coolest Kid: stephenakinola90@gmail.com
+   - Cooler Kid: olatech@gmail.com
+   - Cool Kid: oluwamuyiwaakkinola@gmail.com, stephthedeveloper@gmail.com, unserioustechbro@gmail.com
+
 The API implementation can be found in `wp-content/themes/coolkidsnetwork/inc/API/RoleChangeApi.php`.
 
 By approaching the problem methodically and keeping the end-users (both admins and children) in mind throughout the development process, the resulting theme provides a robust, secure, and engaging platform that meets and exceeds the initial requirements of the Cool Kids Network.
