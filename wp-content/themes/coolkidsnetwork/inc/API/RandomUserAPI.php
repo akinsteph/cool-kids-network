@@ -49,6 +49,7 @@ class RandomUserAPI {
     }
 
     $user = $data['results'][0];
+    $avatar_id = $this->upload_avatar($user['picture']['medium']);
 
     return [
       'first_name' => sanitize_text_field($user['name']['first']),
@@ -61,6 +62,32 @@ class RandomUserAPI {
         'state' => sanitize_text_field($user['location']['state']),
         'postcode' => sanitize_text_field($user['location']['postcode']),
       ],
+      'avatar_id' => $avatar_id,
     ];
+  }
+
+  private function upload_avatar($image_url) {
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    require_once(ABSPATH . 'wp-admin/includes/media.php');
+
+    $tmp = download_url($image_url);
+    if (is_wp_error($tmp)) {
+      return false;
+    }
+
+    $file_array = array(
+      'name' => basename($image_url),
+      'tmp_name' => $tmp
+    );
+
+    $id = media_handle_sideload($file_array, 0);
+
+    if (is_wp_error($id)) {
+      @unlink($file_array['tmp_name']);
+      return false;
+    }
+
+    return $id;
   }
 }

@@ -107,6 +107,6 @@ class Registration {
     update_user_meta($user_id, 'address_city', $user_data['address']['city']);
     update_user_meta($user_id, 'address_state', $user_data['address']['state']);
     update_user_meta($user_id, 'address_postcode', $user_data['address']['postcode']);
-    update_user_meta($user_id, 'cool_kids_role', 'Cool Kid');
+    update_user_meta($user_id, 'avatar_id', $user_data['avatar_id']);
   }
 }

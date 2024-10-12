@@ -26,3 +26,7 @@ define('COOL_KIDS_NETWORK_TEMPLATES_PATH', COOL_KIDS_NETWORK_DIR . '/templates')
 
 // Define languages path.
 define('COOL_KIDS_NETWORK_LANGUAGES_PATH', COOL_KIDS_NETWORK_DIR . '/languages');
+
+// Define API base route and base URL.
+define('COOL_KIDS_NETWORK_API_BASE_ROUTE', 'cool-kids-network/v2');
+define('COOL_KIDS_NETWORK_API_BASE', get_home_url() . '/wp-json/' . COOL_KIDS_NETWORK_API_BASE_ROUTE);

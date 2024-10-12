@@ -49,7 +49,7 @@ if (!defined('PERMALINK')) {
 				?>
 				<?php if (is_user_logged_in()) : ?>
 					<nav class="user-nav">
-						<a href="<?php echo esc_url(home_url('/avatar-profile')); ?>" class="nav-link"><?php echo esc_html__('My Character', 'cool-kids-network'); ?></a>
+						<a href="<?php echo esc_url(home_url('/my-character')); ?>" class="nav-link"><?php echo esc_html__('My Character', 'cool-kids-network'); ?></a>
 						<a href="<?php echo esc_url(home_url('/dashboard')); ?>" class="nav-link"><?php echo esc_html__('Dashboard', 'cool-kids-network'); ?></a>
 						<a href="<?php echo esc_url(wp_logout_url(home_url('/login'))); ?>" class="nav-link logout-icon" title="<?php echo esc_attr__('Logout', 'cool-kids-network'); ?>">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

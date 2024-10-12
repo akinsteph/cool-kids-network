@@ -25,7 +25,7 @@ class RoleManager {
 	private $custom_roles = [
 		'cool_kid' => 'Cool Kid',
 		'cooler_kid' => 'Cooler Kid',
-		'coolest_kid' => 'Coolest Kid'
+		'coolest_kid' => 'Coolest Kid',
 	];
 
 	/**
@@ -87,5 +87,13 @@ class RoleManager {
 	 */
 	public function is_valid_role($role) {
 		return array_key_exists($role, $this->custom_roles);
+	}
+
+	public function is_maintainer($user_id = null) {
+		if ($user_id === null) {
+			$user_id = get_current_user_id();
+		}
+		$user = get_userdata($user_id);
+		return $user && in_array('maintainer', $user->roles);
 	}
 }
