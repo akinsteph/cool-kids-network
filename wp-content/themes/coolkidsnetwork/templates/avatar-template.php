@@ -12,11 +12,12 @@ get_header();
 
 ?>
 
-<main class="avatar-profile">
+<main class="character-profile-wrapper">
 	<div class="container">
-		<h1><?php echo esc_html__('Your Character', 'cool-kids-network'); ?></h1>
+		<h1><?php echo esc_html__('My Character', 'cool-kids-network'); ?></h1>
 		<?php echo do_shortcode('[cool_kids_character_data]'); ?>
 	</div>
+	<div class="sparkles"></div>
 </main>
 
 <?php
