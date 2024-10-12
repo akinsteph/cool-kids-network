@@ -4,7 +4,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText, InspectorControls, URLInput, BlockControls, AlignmentToolbar, withColors, PanelColorSettings, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { PanelBody, Button, TextControl, SelectControl } from '@wordpress/components';
-import ServerSideRender from '@wordpress/server-side-render';
 import { useSelect } from '@wordpress/data';
 
 import './index.scss';
@@ -214,11 +213,6 @@ function Edit({ attributes, setAttributes, backgroundColor, setBackgroundColor }
 					</div>
 				</div>
 			</section>
-
-			<ServerSideRender
-				block="cool-kids-network/hero"
-				attributes={attributes}
-			/>
 		</>
 	);
 }
