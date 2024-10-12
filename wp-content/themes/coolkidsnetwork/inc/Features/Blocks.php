@@ -5,37 +5,34 @@ namespace CoolKidsNetwork\Features;
 use CoolKidsNetwork\Traits\Singleton;
 
 /**
- * Class Blocks.
+ * Class Blocks
  *
  * Manages the registration and rendering of custom blocks for the Cool Kids Network theme.
  * This class handles both static and dynamic blocks, integrating with the block.json structure.
  */
-class Blocks
-{
+class Blocks {
 	use Singleton;
 
 	/**
-	 * @var array List of custom blocks to be registered.
+	 * @var array $blocks List of custom blocks to be registered.
 	 */
 	private $blocks = [
-		'hero',
+		'hero'
 	];
 
 	/**
 	 * Blocks constructor.
 	 * Sets up action hooks for registering blocks and block categories.
 	 */
-	protected function __construct()
-	{
-		add_filter('block_categories_all', [$this, 'register_block_category'], 1, 1);
-		add_action('init', [$this, 'register_blocks']);
+	protected function __construct() {
+		add_filter('block_categories_all', array($this, 'register_block_category'), 1, 1);
+		add_action('init', array($this, 'register_blocks'));
 	}
 
 	/**
 	 * Registers all custom blocks.
 	 */
-	public function register_blocks()
-	{
+	public function register_blocks() {
 		foreach ($this->blocks as $block) {
 			$this->register_block($block);
 		}
@@ -46,13 +43,11 @@ class Blocks
 	 *
 	 * @param string $block_name The name of the block to register.
 	 */
-	private function register_block($block_name)
-	{
+	private function register_block($block_name) {
 		$block_json_file = COOL_KIDS_NETWORK_DIR . "/build/{$block_name}/block.json";
 
 		if (!file_exists($block_json_file)) {
 			error_log("Block JSON file not found for {$block_name}");
-
 			return;
 		}
 
@@ -73,16 +68,15 @@ class Blocks
 	 * @param WP_Post $post The post being edited.
 	 * @return array Modified array of block categories.
 	 */
-	public function register_block_category($categories)
-	{
+	public function register_block_category($categories) {
 
-		$cool_kids_network_block = [
-			'slug' => 'cool-kids-network',
+		$cool_kids_network_block = array(
+			'slug'  => 'cool-kids-network',
 			'title' => __('Cool Kids Network Blocks', 'cool-kids-network'),
-			'icon' => 'superhero',
-		];
+			'icon'  => 'superhero',
+		);
 
-		$categories_sorted = [];
+		$categories_sorted = array();
 		$categories_sorted[0] = $cool_kids_network_block;
 
 		foreach ($categories as $category) {
@@ -92,6 +86,7 @@ class Blocks
 		return $categories_sorted;
 	}
 
+
 	/**
 	 * Render callback for the hero block.
 	 *
@@ -99,8 +94,7 @@ class Blocks
 	 * @param string $content The block content.
 	 * @return string The rendered block.
 	 */
-	public function render_hero_block($attributes, $content)
-	{
+	public function render_hero_block($attributes, $content) {
 		$title = $attributes['title'] ?? '';
 		$description = $attributes['description'] ?? '';
 		$additional_content = $attributes['content'] ?? '';
@@ -110,7 +104,7 @@ class Blocks
 		$logged_out_buttons = $attributes['loggedOutButtons'] ?? [];
 		$logged_in_buttons = $attributes['loggedInButtons'] ?? [];
 
-		$style = 'background-color: ' . esc_attr($background_color) . ';';
+		$style = "background-color: " . esc_attr($background_color) . ";";
 		if ($background_image) {
 			$style .= " background-image: url('" . esc_url($background_image) . "'); background-size: cover; background-position: center;";
 		}
@@ -118,7 +112,7 @@ class Blocks
 		$logo = get_custom_logo();
 		ob_start();
 
-		?>
+?>
 		<section class="wp-block-cool-kids-network-hero hero-block alignment-<?php echo esc_attr($alignment); ?> alignfull" style="<?php echo $style; ?>">
 			<div class="hero-overlay"></div>
 			<div class="hero-content">
@@ -157,6 +151,6 @@ class Blocks
 			</div>
 		</section>
 <?php
-				return ob_get_clean();
+		return ob_get_clean();
 	}
 }

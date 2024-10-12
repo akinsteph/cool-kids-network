@@ -17,7 +17,6 @@
 /wp-content/themes/coolkidsnetwork/phpcs.xml
 /wp-content/themes/coolkidsnetwork/.php-cs-fixer.php
 /wp-content/themes/coolkidsnetwork/.php-cs-fixer.cache
-/wp-content/themes/coolkidsnetwork/.phpunit.result.cache
 *.log
 /*.php
 /*.pdf
