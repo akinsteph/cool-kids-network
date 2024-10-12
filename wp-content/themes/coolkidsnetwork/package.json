@@ -1,0 +1,29 @@
+{
+	"name": "cool-kids-network-theme",
+	"version": "1.0.0",
+	"description": "Cool Kids Network WordPress Theme",
+	"scripts": {
+		"build": "wp-scripts build && gulp style",
+		"start": "wp-scripts start && gulp watch",
+		"check-engines": "wp-scripts check-engines",
+		"check-licenses": "wp-scripts check-licenses",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"test:e2e": "wp-scripts test-e2e",
+		"test:unit": "wp-scripts test-unit-js"
+	},
+	"author": "Stephen Akinola",
+	"license": "GPL-2.0-or-later",
+	"devDependencies": {
+		"@wordpress/scripts": "^30.1.0",
+		"gulp": "^5.0.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-postcss": "^10.0.0",
+		"gulp-sass": "^5.1.0"
+	}
+}

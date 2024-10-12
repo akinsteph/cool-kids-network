@@ -1,0 +1,61 @@
+@keyframes editorFadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.wp-block-cool-kids-network-hero {
+	/* Styles specific to the editor */
+	min-height: 500px;
+	padding: 20px;
+	box-sizing: border-box;
+	animation: editorFadeIn 0.5s ease-out;
+
+	// Center content in the editor
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: #F7FAFC;
+
+	// Add transition for smooth color changes
+	transition: background-color 0.3s ease;
+
+	.hero-logo {
+		margin-bottom: 2rem;
+		text-align: center;
+
+		img {
+			max-width: 200px;
+			height: auto;
+		}
+	}
+
+	// Style placeholder text
+	.block-editor-rich-text__editable {
+		&[data-empty="true"]::before {
+			color: #888;
+		}
+	}
+
+	// Style buttons in the editor
+	.hero-buttons,
+	.hero-logged-in-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+		margin-top: 1rem;
+		animation: slideUp 0.8s ease-out 0.8s both;
+	}
+
+	// Add subtle animation when the block is selected
+	&.is-selected {
+		animation: editorFadeIn 0.3s ease-out;
+	}
+
+}
