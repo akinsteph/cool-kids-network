@@ -44,7 +44,7 @@ if (!defined('PERMALINK')) {
 			if (has_custom_logo()):
 				echo get_custom_logo();
 			endif;
-?>
+			?>
 			<?php if (is_user_logged_in()) : ?>
 				<button class="hamburger-menu" aria-label="Toggle menu">
 					<span></span>
@@ -52,10 +52,10 @@ if (!defined('PERMALINK')) {
 					<span></span>
 				</button>
 				<nav class="user-nav">
-					<?php if (!is_page('my-character')): ?>
+					<?php if (!is_page('my-character') && !is_home() && !is_front_page()): ?>
 						<a href="<?php echo esc_url(home_url('/my-character')); ?>" class="nav-link button"><?php echo esc_html__('My Character', 'cool-kids-network'); ?></a>
 					<?php endif; ?>
-					<?php if (!is_page('other-characters')): ?>
+					<?php if (!is_page('other-characters') && !is_home() && !is_front_page()): ?>
 						<a href="<?php echo esc_url(home_url('/other-characters')); ?>" class="nav-link button secondary"><?php echo esc_html__('Other Characters', 'cool-kids-network'); ?></a>
 					<?php endif; ?>
 					<a href="<?php echo esc_url(wp_logout_url(home_url('/login'))); ?>" class="nav-link logout-icon" title="<?php echo esc_attr__('Logout', 'cool-kids-network'); ?>">

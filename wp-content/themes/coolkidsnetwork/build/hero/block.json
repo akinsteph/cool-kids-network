@@ -48,7 +48,7 @@
       "type": "array",
       "default": [
         {
-          "text": "Dashboard",
+          "text": "My character",
           "link": "",
           "linkType": "page"
         }
