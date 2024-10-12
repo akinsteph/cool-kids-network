@@ -3,6 +3,7 @@ const CoolKidsJs = {
 		this.createSparkles();
 		this.initLoginForm();
 		this.initSignupForm();
+		this.initHamburgerMenu();
 	},
 
 	createSparkles: function () {
@@ -33,8 +34,20 @@ const CoolKidsJs = {
 		signupForm.addEventListener('submit', this.handleSignup.bind(this));
 	},
 
+	initHamburgerMenu: function () {
+		const hamburger = document.querySelector('.hamburger-menu');
+		const nav = document.querySelector('.user-nav');
+
+		if (!hamburger || !nav) return;
+
+		hamburger.addEventListener('click', function () {
+			nav.classList.toggle('open');
+			hamburger.classList.toggle('open');
+		});
+	},
+
 	handleLogin: function (event) {
-		event.preventDefault(); // This line is crucial
+		event.preventDefault();
 
 		const email = document.getElementById('login-email').value;
 		const errorElement = document.getElementById('login-error');
@@ -59,7 +72,7 @@ const CoolKidsJs = {
 	},
 
 	handleSignup: function (event) {
-		event.preventDefault(); // This line is crucial
+		event.preventDefault();
 
 		const email = document.getElementById('signup-email').value;
 		const errorElement = document.getElementById('registration-error');

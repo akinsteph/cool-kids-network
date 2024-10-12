@@ -45,24 +45,25 @@ class CharacterManagement {
     ob_start();
 ?>
     <div class="cool-kids-character-data">
-      <h2><?php echo esc_html__('Your Character', 'cool-kids-network'); ?></h2>
       <?php if (!empty($user_data['avatar_url'])): ?>
         <div class="character-avatar">
           <img src="<?php echo esc_url($user_data['avatar_url']); ?>" alt="<?php echo esc_attr($user_data['name']); ?>" />
         </div>
       <?php endif; ?>
-      <?php foreach ($user_data as $key => $value): ?>
-        <?php if ($key === 'address'): ?>
-          <p><strong><?php echo esc_html__('Address', 'cool-kids-network'); ?>:</strong></p>
-          <ul>
-            <?php foreach ($value as $address_key => $address_value): ?>
-              <li><?php echo esc_html(ucfirst($address_key)); ?>: <?php echo esc_html($address_value); ?></li>
-            <?php endforeach; ?>
-          </ul>
-        <?php elseif ($key !== 'avatar_url'): ?>
-          <p><strong><?php echo esc_html(ucfirst(str_replace('_', ' ', $key))); ?>:</strong> <?php echo esc_html($value); ?></p>
-        <?php endif; ?>
-      <?php endforeach; ?>
+      <div class="character-info">
+        <?php foreach ($user_data as $key => $value): ?>
+          <?php if ($key === 'address'): ?>
+            <div><strong><?php echo esc_html__('Address', 'cool-kids-network'); ?>:</strong></div>
+            <ul>
+              <?php foreach ($value as $address_key => $address_value): ?>
+                <li><?php echo esc_html(ucfirst($address_key)); ?>: <?php echo esc_html($address_value); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          <?php elseif ($key !== 'avatar_url'): ?>
+            <p><strong><?php echo esc_html(ucfirst(str_replace('_', ' ', $key))); ?>:</strong> <span><?php echo esc_html($value); ?></span></p>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   <?php
     return ob_get_clean();
@@ -153,23 +154,24 @@ class CharacterManagement {
     ob_start();
   ?>
     <div class="other-characters">
-      <h2><?php echo esc_html__('Other Characters', 'cool-kids-network'); ?></h2>
       <ul>
         <?php foreach ($characters as $character): ?>
           <li>
             <?php if (!empty($character['avatar_url'])): ?>
               <img src="<?php echo esc_url($character['avatar_url']); ?>" alt="<?php echo esc_attr($character['name']); ?>" class="character-avatar" />
             <?php endif; ?>
-            <h3><?php echo esc_html($character['name']); ?></h3>
-            <?php if (isset($character['country'])): ?>
-              <p><strong><?php echo esc_html__('Country:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['country']); ?></p>
-            <?php endif; ?>
-            <?php if (isset($character['role'])): ?>
-              <p><strong><?php echo esc_html__('Role:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['role']); ?></p>
-            <?php endif; ?>
-            <?php if (isset($character['email'])): ?>
-              <p><strong><?php echo esc_html__('Email:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['email']); ?></p>
-            <?php endif; ?>
+            <div class="character-info">
+              <h3><?php echo esc_html($character['name']); ?></h3>
+              <?php if (isset($character['country'])): ?>
+                <p><strong><?php echo esc_html__('Country:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['country']); ?></p>
+              <?php endif; ?>
+              <?php if (isset($character['role'])): ?>
+                <p><strong><?php echo esc_html__('Role:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['role']); ?></p>
+              <?php endif; ?>
+              <?php if (isset($character['email'])): ?>
+                <p><strong><?php echo esc_html__('Email:', 'cool-kids-network'); ?></strong> <?php echo esc_html($character['email']); ?></p>
+              <?php endif; ?>
+            </div>
           </li>
         <?php endforeach; ?>
       </ul>

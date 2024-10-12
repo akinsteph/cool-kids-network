@@ -54,7 +54,10 @@ class RoleChangeAPI {
 				'new_role' => [
 					'required' => true,
 					'type' => 'string',
-					'enum' => array_keys($this->role_manager->get_custom_roles()),
+					'enum' => array_merge(
+						array_keys($this->role_manager->get_custom_roles()),
+						array_values($this->role_manager->get_custom_roles())
+					),
 				],
 			],
 		]);
@@ -69,6 +72,12 @@ class RoleChangeAPI {
 	public function change_user_role($request) {
 		$user_identifier = sanitize_text_field($request['user_identifier']);
 		$new_role = sanitize_text_field($request['new_role']);
+
+		// Convert display name to role key if necessary
+		$role_key = array_search($new_role, $this->role_manager->get_custom_roles());
+		if ($role_key !== false) {
+			$new_role = $role_key;
+		}
 
 		if (!$this->role_manager->is_valid_role($new_role)) {
 			return new \WP_REST_Response([
