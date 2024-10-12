@@ -27,7 +27,7 @@ class CharacterManagementTest extends TestCase {
 		Functions\when('esc_html')->returnArg();
 		Functions\when('esc_html__')->returnArg();
 
-		$this->character_management = new CharacterManagement();
+		$this->character_management = CharacterManagement::get_instance();
 	}
 
 	protected function tearDown(): void {
