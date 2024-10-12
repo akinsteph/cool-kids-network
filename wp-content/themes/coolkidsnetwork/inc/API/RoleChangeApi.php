@@ -45,7 +45,7 @@ class RoleChangeAPI {
 		register_rest_route('cool-kids-network/v1', '/change-role', [
 			'methods' => 'POST',
 			'callback' => [$this, 'change_user_role'],
-			'permission_callback' => [$this, 'check_admin_permissions'],
+			'permission_callback' => [$this, 'check_api_permissions'],
 			'args' => [
 				'user_identifier' => [
 					'required' => true,
@@ -71,18 +71,40 @@ class RoleChangeAPI {
 		$new_role = sanitize_text_field($request['new_role']);
 
 		if (!$this->role_manager->is_valid_role($new_role)) {
-			return new \WP_Error('invalid_role', 'Invalid role specified', ['status' => 400]);
+			return new \WP_REST_Response([
+				'success' => false,
+				'message' => 'Invalid role specified.',
+				'error_code' => 'invalid_role'
+			], 400);
 		}
 
 		$user = $this->get_user_by_identifier($user_identifier);
 
 		if (!$user) {
-			return new \WP_Error('user_not_found', 'User not found', ['status' => 404]);
+			return new \WP_REST_Response([
+				'success' => false,
+				'message' => 'User not found.',
+				'error_code' => 'user_not_found'
+			], 404);
 		}
 
+		$old_role = reset($user->roles);
 		$user->set_role($new_role);
 
-		return new \WP_REST_Response(['message' => 'User role updated successfully'], 200);
+		$user_data = [
+			'id' => $user->ID,
+			'username' => $user->user_login,
+			'email' => $user->user_email,
+			'display_name' => $user->display_name,
+			'old_role' => $old_role,
+			'new_role' => $new_role
+		];
+
+		return new \WP_REST_Response([
+			'success' => true,
+			'message' => 'User role updated successfully.',
+			'user' => $user_data
+		], 200);
 	}
 
 
@@ -91,8 +113,14 @@ class RoleChangeAPI {
 	 *
 	 * @return bool True if the user has permission, false otherwise.
 	 */
-	public function check_admin_permissions() {
-		return current_user_can('manage_options');
+	public function check_api_permissions($request) {
+		$api_key = $request->get_header('X-API-Key');
+
+		if (!$api_key) {
+			return false;
+		}
+
+		return $api_key === '8f7d9e2a3b1c5f4e6g8h7i9j0k1l2m3n';
 	}
 
 	/**
@@ -105,10 +133,40 @@ class RoleChangeAPI {
 		if (is_email($identifier)) {
 			return get_user_by('email', $identifier);
 		} else {
-			$name_parts = explode(' ', $identifier);
+			// Search by display name
+			$users = get_users([
+				'search' => $identifier,
+				'search_columns' => ['display_name'],
+				'number' => 1
+			]);
+
+			if (!empty($users)) {
+				return $users[0];
+			}
+
+			// If not found, try searching by first and last name
+			$name_parts = explode(' ', $identifier, 2);
 			$first_name = $name_parts[0];
 			$last_name = isset($name_parts[1]) ? $name_parts[1] : '';
-			return get_user_by('login', $first_name . ' ' . $last_name);
+
+			$users = get_users([
+				'meta_query' => [
+					'relation' => 'AND',
+					[
+						'key' => 'first_name',
+						'value' => $first_name,
+						'compare' => '='
+					],
+					[
+						'key' => 'last_name',
+						'value' => $last_name,
+						'compare' => '='
+					]
+				],
+				'number' => 1
+			]);
+
+			return !empty($users) ? $users[0] : false;
 		}
 	}
 }

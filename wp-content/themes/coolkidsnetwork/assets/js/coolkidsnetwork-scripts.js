@@ -50,7 +50,7 @@ const CoolKidsJs = {
 			if (response.success) {
 				this.showSuccess(successElement, 'Logged in successfully!');
 				setTimeout(() => {
-					window.location.href = '/dashboard';
+					window.location.href = '/my-character';
 				}, 1500);
 			} else {
 				this.showError(errorElement, response.data || 'Login failed. Please try again.');
@@ -150,8 +150,8 @@ const CoolKidsJs = {
 	removeAllNotifications: function () {
 		const notifications = document.querySelectorAll('.error-message, .success-message');
 		notifications.forEach(notification => {
-			notification.style.display = 'none';
 			notification.textContent = '';
+			notification.style.display = 'none';
 		});
 	},
 
