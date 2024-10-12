@@ -10,8 +10,8 @@
 
 namespace CoolKidsNetwork\API;
 
-use CoolKidsNetwork\Traits\Singleton;
 use CoolKidsNetwork\Features\RoleManager;
+use CoolKidsNetwork\Traits\Singleton;
 
 /**
  * RoleChangeAPI.php.
@@ -24,7 +24,7 @@ class RoleChangeAPI {
 	use Singleton;
 
 	/**
-	 * @var RoleManager $role_manager Instance of the RoleManager class.
+	 * @var RoleManager Instance of the RoleManager class.
 	 */
 	private $role_manager;
 
@@ -35,7 +35,7 @@ class RoleChangeAPI {
 	 */
 	protected function __construct() {
 		$this->role_manager = RoleManager::get_instance();
-		add_action('rest_api_init', array($this, 'register_endpoints'));
+		add_action('rest_api_init', [$this, 'register_endpoints']);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class RoleChangeAPI {
 			return new \WP_REST_Response([
 				'success' => false,
 				'message' => 'Invalid role specified.',
-				'error_code' => 'invalid_role'
+				'error_code' => 'invalid_role',
 			], 400);
 		}
 
@@ -93,7 +93,7 @@ class RoleChangeAPI {
 			return new \WP_REST_Response([
 				'success' => false,
 				'message' => 'User not found.',
-				'error_code' => 'user_not_found'
+				'error_code' => 'user_not_found',
 			], 404);
 		}
 
@@ -106,16 +106,15 @@ class RoleChangeAPI {
 			'email' => $user->user_email,
 			'display_name' => $user->display_name,
 			'old_role' => $old_role,
-			'new_role' => $new_role
+			'new_role' => $new_role,
 		];
 
 		return new \WP_REST_Response([
 			'success' => true,
 			'message' => 'User role updated successfully.',
-			'user' => $user_data
+			'user' => $user_data,
 		], 200);
 	}
-
 
 	/**
 	 * Checks if the current user has permission to change roles.
@@ -146,7 +145,7 @@ class RoleChangeAPI {
 			$users = get_users([
 				'search' => $identifier,
 				'search_columns' => ['display_name'],
-				'number' => 1
+				'number' => 1,
 			]);
 
 			if (!empty($users)) {
@@ -164,15 +163,15 @@ class RoleChangeAPI {
 					[
 						'key' => 'first_name',
 						'value' => $first_name,
-						'compare' => '='
+						'compare' => '=',
 					],
 					[
 						'key' => 'last_name',
 						'value' => $last_name,
-						'compare' => '='
-					]
+						'compare' => '=',
+					],
 				],
-				'number' => 1
+				'number' => 1,
 			]);
 
 			return !empty($users) ? $users[0] : false;
